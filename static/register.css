@@ -139,6 +139,29 @@ body {
     margin-top: 20px;
 }
 
+
+/* Common Button Style */
+#getOtpBtn,
+#verifyOtpBtn {
+    padding: 10px 16px;
+    background-color: #3498db;
+    color: black;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    margin-top: 8px;
+    height: 40px;
+}
+
+/* Hover Effect */
+#getOtpBtn:hover,
+#verifyOtpBtn:hover {
+    background-color: #66bb6a;
+    color: black;
+}
+
 .registration-form button.submit-button:hover {
     background-color: #66bb6a;
     color: #000;
@@ -216,4 +239,10 @@ body {
 
 .input-field:valid {
     border-color: green;
+}
+
+.submit-button:disabled {
+    background-color: #aaa !important;
+    cursor: not-allowed;
+    color: #666 !important;
 }

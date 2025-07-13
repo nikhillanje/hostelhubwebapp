@@ -31,8 +31,9 @@
                     <div class="mobile-with-otp">
                         {{ form.mobile_no(id="mobile", placeholder="Enter mobile number", class="input-field",
                         required=True) }}
-                        <button type="button" class="get-otp-btn">Get OTP</button>
+                        <button type="button" id="getOtpBtn">Get OTP</button>
                     </div>
+
                 </div>
                 <div class="input-pair">
                     <label for="address">Address</label>
@@ -107,10 +108,11 @@
                     <input type="text" maxlength="1" required>
                     <input type="text" maxlength="1" required>
                 </div>
-                <button type="button" class="get-otp-btn">Verify OTP</button>
+                <button type="button" id="verifyOtpBtn">Verify OTP</button>
             </div>
 
-            <button type="submit" class="submit-button">{{ form.submit.label.text }}</button>
+            <button type="submit" class="submit-button" id="registerBtn" disabled>{{ form.submit.label.text }}</button>
+
             <p class="lgin">I have an account !
                 <a href="{{ url_for('login') }}">Login</a>
             </p>

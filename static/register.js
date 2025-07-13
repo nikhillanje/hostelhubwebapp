@@ -13,92 +13,11 @@ otpInputs.forEach((input, index) => {
             otpInputs[index - 1].focus();
         }
     });
-
-    input.addEventListener('click', () => {
-        if (input.value.length === 0 && index > 0) {
-            otpInputs[index - 1].focus();
-        }
-    });
 });
 
-// Form Validation on Submit
-(() => {
-    'use strict';
-    const form = document.querySelector('form');
-
-    const emailInput = document.getElementById("email");
-    const emailError = emailInput.nextElementSibling;
-
-    const usernameInput = document.getElementById("username");
-    const usernameError = usernameInput.nextElementSibling;
-
-    const passwordInput = document.getElementById("password");
-    const passwordError = passwordInput.nextElementSibling;
-
-    form.addEventListener('submit', function (event) {
-        let valid = true;
-
-        // Email domain check
-        const emailValue = emailInput.value.trim();
-        const trustedDomains = [
-            "gmail.com", "yahoo.com", "outlook.com", "hotmail.com",
-            "protonmail.com", "zoho.com", "nic.in", "gov.in", "ac.in"
-        ];
-        let isEmailValid = false;
-        const emailParts = emailValue.split("@");
-        if (emailParts.length === 2) {
-            const domain = emailParts[1].toLowerCase();
-            isEmailValid = trustedDomains.some(allowed =>
-                domain === allowed || domain.endsWith("." + allowed)
-            );
-        }
-
-        if (!isEmailValid) {
-            emailInput.classList.add("invalid");
-            emailError.textContent = "Only trusted domains like gmail.com, ac.in, gov.in are allowed.";
-            emailError.style.display = "block";
-            valid = false;
-        } else {
-            emailInput.classList.remove("invalid");
-            emailError.style.display = "none";
-        }
-
-        // Username ≥ 5 characters
-        if (usernameInput.value.trim().length < 5) {
-            usernameInput.classList.add("invalid");
-            usernameError.textContent = "Username must be at least 5 characters.";
-            usernameError.style.display = "block";
-            valid = false;
-        } else {
-            usernameInput.classList.remove("invalid");
-            usernameError.style.display = "none";
-        }
-
-        // Password ≥ 8 characters
-        if (passwordInput.value.length < 8) {
-            passwordInput.classList.add("invalid");
-            passwordError.textContent = "Password must be at least 8 characters.";
-            passwordError.style.display = "block";
-            valid = false;
-        } else {
-            passwordInput.classList.remove("invalid");
-            passwordError.style.display = "none";
-        }
-
-        // Final check
-        if (!form.checkValidity() || !valid) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-
-        form.classList.add('was-validated');
-    }, false);
-})();
-
-// Full Name (only letters & spaces)
+// Full Name (only letters)
 const nameInput = document.getElementById("name");
 const nameError = nameInput.nextElementSibling;
-
 nameInput.addEventListener("input", function () {
     nameInput.value = nameInput.value.replace(/[0-9]/g, '');
     const nameValue = nameInput.value.trim();
@@ -113,7 +32,7 @@ nameInput.addEventListener("input", function () {
     }
 });
 
-// Live Email Trusted Domain Validation
+// Email Domain Check
 const emailInput = document.getElementById("email");
 const emailError = emailInput.nextElementSibling;
 emailInput.addEventListener("input", function () {
@@ -162,17 +81,106 @@ mobileInput.addEventListener("input", function () {
     }
 });
 
-// Academic Branch: Only letters & spaces
+// Academic Branch (letters only)
 const branchInput = document.getElementById("academic_branch");
 branchInput.addEventListener("input", function () {
     branchInput.value = branchInput.value.replace(/[^A-Za-z\s]/g, '');
 });
 
-// Academic Year: Only 1 to 4
+// Academic Year (1 to 4)
 const yearInput = document.getElementById("academic_year");
 yearInput.addEventListener("input", function () {
     const validYears = ['1', '2', '3', '4'];
     if (!validYears.includes(yearInput.value)) {
         yearInput.value = '';
+    }
+});
+
+// Form Submit Validation
+(() => {
+    const form = document.querySelector('form');
+
+    const usernameInput = document.getElementById("username");
+    const usernameError = usernameInput.nextElementSibling;
+
+    const passwordInput = document.getElementById("password");
+    const passwordError = passwordInput.nextElementSibling;
+
+    form.addEventListener('submit', function (event) {
+        let valid = true;
+
+        // Email domain already validated above
+        if (emailInput.classList.contains("invalid")) valid = false;
+
+        // Username ≥ 5 characters
+        if (usernameInput.value.trim().length < 5) {
+            usernameInput.classList.add("invalid");
+            usernameError.textContent = "Username must be at least 5 characters.";
+            usernameError.style.display = "block";
+            valid = false;
+        } else {
+            usernameInput.classList.remove("invalid");
+            usernameError.style.display = "none";
+        }
+
+        // Password ≥ 8 characters
+        if (passwordInput.value.length < 8) {
+            passwordInput.classList.add("invalid");
+            passwordError.textContent = "Password must be at least 8 characters.";
+            passwordError.style.display = "block";
+            valid = false;
+        } else {
+            passwordInput.classList.remove("invalid");
+            passwordError.style.display = "none";
+        }
+
+        if (!form.checkValidity() || !valid) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+
+        form.classList.add('was-validated');
+    }, false);
+})();
+
+// Disable register button initially
+const registerBtn = document.getElementById('registerBtn');
+registerBtn.disabled = true;
+registerBtn.style.backgroundColor = '#aaa';
+
+// Send OTP
+document.getElementById('getOtpBtn').addEventListener('click', async () => {
+    const phone = document.getElementById('mobile').value;
+    const response = await fetch('/send-otp', {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phone })
+    });
+    const result = await response.json();
+    alert(result.message || result.error);
+});
+
+// Verify OTP
+document.getElementById('verifyOtpBtn').addEventListener('click', async () => {
+    const phone = document.getElementById('mobile').value;
+    const otp = Array.from(otpInputs).map(i => i.value).join('');
+
+    const response = await fetch('/verify-otp', {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phone, otp })
+    });
+
+    const result = await response.json();
+
+    if (result.message === 'OTP verified successfully!') {
+        alert(result.message);
+        registerBtn.disabled = false;
+        registerBtn.style.backgroundColor = '#4CAF50';
+        registerBtn.style.color = 'white';
+    } else {
+        alert(result.error || 'OTP verification failed');
+        otpInputs.forEach(input => input.value = '');
+        otpInputs[0].focus();
     }
 });

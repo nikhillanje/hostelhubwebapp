@@ -50,7 +50,7 @@
 
                 <div class="options">
                     <label><input type="checkbox" checked> Remember me</label>
-                    <a href="forgot.html">Forgot Password?</a>
+                    <a href="{{ url_for('forgot_password') }}">Forgot Password?</a>
                 </div>
 
                 <button type="submit">{{ form.submit.label.text }}</button>
