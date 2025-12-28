@@ -53,149 +53,176 @@ import time
 from datetime import datetime, date, timedelta
 
 
-# Load config
-with open('config.json', 'r') as c:
-    params = json.load(c)["params"]
-
+# =============================
+# FLASK APP INIT
+# =============================
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
-app.secret_key = params['secret_key']
 
+# =============================
+# SECRET KEY & SESSION CONFIG
+# =============================
 
+app.secret_key = os.environ.get("SECRET_KEY")
 
-app.config['SECRET_KEY'] = params['SECRET_KEY']
-app.config['SESSION_COOKIE_HTTPONLY'] = params['SESSION_COOKIE_HTTPONLY']
-app.config['SESSION_COOKIE_SECURE'] = params['SESSION_COOKIE_SECURE']
-app.config['SESSION_COOKIE_SAMESITE'] = params['SESSION_COOKIE_SAMESITE']
-app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(
-    minutes=params['SESSION_LIFETIME_MINUTES']
-)
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
+app.config["SESSION_COOKIE_HTTPONLY"] = True
+app.config["SESSION_COOKIE_SECURE"] = True
+app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
+app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(minutes=20)
 
-# Mail setup
+# =============================
+# MAIL CONFIG (GMAIL)
+# =============================
+
 app.config.update(
-    MAIL_SERVER='smtp.gmail.com',
+    MAIL_SERVER="smtp.gmail.com",
     MAIL_PORT=465,
     MAIL_USE_SSL=True,
-    MAIL_USERNAME=params['gmail_user'],
-    MAIL_PASSWORD=params['gmail_password']
+    MAIL_USERNAME=os.environ.get("MAIL_USERNAME"),
+    MAIL_PASSWORD=os.environ.get("MAIL_PASSWORD")
 )
+
 mail = Mail(app)
 
-# MongoDB setup
-username = params["mongo_username"]
-password = quote_plus(params["mongo_password"])
-cluster = params["mongo_cluster"]
-dbname = params["mongo_db"]
+# =============================
+# MONGODB CONFIG (ATLAS)
+# =============================
+
+mongo_username = os.environ.get("MONGO_USERNAME")
+mongo_password = quote_plus(os.environ.get("MONGO_PASSWORD"))
+mongo_cluster = os.environ.get("MONGO_CLUSTER")
+mongo_db = os.environ.get("MONGO_DB")
 
 app.config["MONGO_URI"] = (
-    f"mongodb+srv://{username}:{password}@{cluster}/{dbname}"
+    f"mongodb+srv://{mongo_username}:{mongo_password}@"
+    f"{mongo_cluster}/{mongo_db}?retryWrites=true&w=majority"
 )
 
-
 mongo = PyMongo(app)
-
-
-
 
 attendance_col = mongo.db.attendance
 users_collection = mongo.db.users
 attendance_collection = mongo.db.attendance
 
+# =============================
+# FILE UPLOAD
+# =============================
 
-# Media upload folder
 UPLOAD_FOLDER = "static/uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
-# Flask-Login
+# =============================
+# FLASK-LOGIN
+# =============================
+
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view = 'login'
+login_manager.login_view = "login"
 
-# User loader
 @login_manager.user_loader
 def load_user(user_id):
     user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
     return User(user) if user else None
 
+# =============================
+# USER MODEL
+# =============================
 
-# Flask-Login User class
 class User(UserMixin):
     def __init__(self, user_data):
-        self.id = str(user_data['_id'])
-        self.username = user_data['username']
-        self.password = user_data['password']
+        self.id = str(user_data["_id"])
+        self.username = user_data["username"]
+        self.password = user_data["password"]
 
-
+# =============================
+# FORMS
+# =============================
 
 class RegisterForm(FlaskForm):
-    name = StringField('Name', validators=[InputRequired()])
-    username = StringField('Username', validators=[InputRequired()])
-    password = PasswordField('Password', validators=[InputRequired()])
-    address = StringField('Address', validators=[InputRequired()])
-    mobile_no = StringField('Mobile No', validators=[InputRequired()])
-    email = StringField('Email', validators=[InputRequired(), Email()])
-    
-    academic_branch = SelectField('Academic Branch', choices=[
-        ('CSE', 'Computer Science Engineering'),
-        ('IT', 'Information Technology'),
-        ('ECE', 'Electronics and Communication'),
-        ('EEE', 'Electrical and Electronics'),
-        ('ME', 'Mechanical Engineering'),
-        ('CE', 'Civil Engineering'),
-        ('AI', 'Artificial Intelligence'),
-        ('DS', 'Data Science'),
-        ('CSBS', 'Computer Science & Business Systems')
-    ], validators=[InputRequired()])
+    name = StringField("Name", validators=[InputRequired()])
+    username = StringField("Username", validators=[InputRequired()])
+    password = PasswordField("Password", validators=[InputRequired()])
+    address = StringField("Address", validators=[InputRequired()])
+    mobile_no = StringField("Mobile No", validators=[InputRequired()])
+    email = StringField("Email", validators=[InputRequired(), Email()])
 
-    academic_year = SelectField('Academic Year', choices=[
-        ('1', 'First Year'),
-        ('2', 'Second Year'),
-        ('3', 'Third Year'),
-        ('4', 'Fourth Year')
-    ], validators=[InputRequired()])
+    academic_branch = SelectField(
+        "Academic Branch",
+        choices=[
+            ("CSE", "Computer Science Engineering"),
+            ("IT", "Information Technology"),
+            ("ECE", "Electronics and Communication"),
+            ("EEE", "Electrical and Electronics"),
+            ("ME", "Mechanical Engineering"),
+            ("CE", "Civil Engineering"),
+            ("AI", "Artificial Intelligence"),
+            ("DS", "Data Science"),
+            ("CSBS", "Computer Science & Business Systems"),
+        ],
+        validators=[InputRequired()],
+    )
 
-    gender = SelectField('Gender', choices=[
-        ('Male', 'Male'), 
-        ('Female', 'Female'), 
-        ('Other', 'Other')
-    ])
-    
-    submit = SubmitField('Register')
+    academic_year = SelectField(
+        "Academic Year",
+        choices=[
+            ("1", "First Year"),
+            ("2", "Second Year"),
+            ("3", "Third Year"),
+            ("4", "Fourth Year"),
+        ],
+        validators=[InputRequired()],
+    )
+
+    gender = SelectField(
+        "Gender",
+        choices=[("Male", "Male"), ("Female", "Female"), ("Other", "Other")]
+    )
+
+    submit = SubmitField("Register")
 
     def validate_username(self, username):
-        if mongo.db.users.find_one({'username': username.data}):
-            raise ValidationError('Username already exists.')
-
+        if mongo.db.users.find_one({"username": username.data}):
+            raise ValidationError("Username already exists.")
 
 class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[InputRequired()])
-    password = PasswordField('Password', validators=[InputRequired()])
-    captcha = StringField('Enter CAPTCHA', validators=[InputRequired()])
-    submit = SubmitField('Login')
+    username = StringField("Username", validators=[InputRequired()])
+    password = PasswordField("Password", validators=[InputRequired()])
+    captcha = StringField("Enter CAPTCHA", validators=[InputRequired()])
+    submit = SubmitField("Login")
 
-# CAPTCHA generator
+# =============================
+# CAPTCHA
+# =============================
+
 def generate_captcha(length=6):
-    return ''.join(random.choices(string.ascii_uppercase + string.digits, k=length))
+    return "".join(random.choices(string.ascii_uppercase + string.digits, k=length))
 
+# =============================
+# RAZORPAY CONFIG
+# =============================
 
-# Razorpay API Credentials
-RAZORPAY_KEY_ID = params['razorpay_key_id']
-RAZORPAY_KEY_SECRET = params['razorpay_key_secret']
+RAZORPAY_KEY_ID = os.environ.get("RAZORPAY_KEY_ID")
+RAZORPAY_KEY_SECRET = os.environ.get("RAZORPAY_KEY_SECRET")
 
+razorpay_client = razorpay.Client(
+    auth=(RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET)
+)
 
-# Razorpay client initialization
-razorpay_client = razorpay.Client(auth=(RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET))
+# =============================
+# TWILIO CONFIG
+# =============================
 
+TWILIO_ACCOUNT_SID = os.environ.get("TWILIO_ACCOUNT_SID")
+TWILIO_AUTH_TOKEN = os.environ.get("TWILIO_AUTH_TOKEN")
+TWILIO_PHONE_NUMBER = os.environ.get("TWILIO_PHONE_NUMBER")
 
-# Twilio API Credentials
-account_sid = params['twilio_account_sid']
-auth_token = params['twilio_auth_token']
-twilio_number = params['twilio_number']
-
-client = Client(account_sid, auth_token)
-
+twilio_client = Client(
+    TWILIO_ACCOUNT_SID,
+    TWILIO_AUTH_TOKEN
+)
 
 @app.before_request
 def session_timeout_check():
