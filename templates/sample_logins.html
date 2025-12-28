@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sample Logins - HostelHub</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='sample_logins.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Sample Login Credentials</h2>
+
+        <!-- Hostel Admin -->
+        <div class="card">
+            <h3>Hostel Admin Login</h3>
+
+            <div class="field">
+                <span>Email:</span>
+                <input type="text" value="hosteladmin@hostelhub.ac.in" readonly id="ha-email">
+                <button onclick="copyText('ha-email')">Copy</button>
+            </div>
+
+            <div class="field">
+                <span>Password:</span>
+                <input type="text" value="messtrackadmin" readonly id="ha-pass">
+                <button onclick="copyText('ha-pass')">Copy</button>
+            </div>
+        </div>
+
+        <!-- Mess Admin -->
+        <div class="card">
+            <h3>Mess Admin Login</h3>
+
+            <div class="field">
+                <span>Email:</span>
+                <input type="text" value="messtrack@admin.com" readonly id="ma-email">
+                <button onclick="copyText('ma-email')">Copy</button>
+            </div>
+
+            <div class="field">
+                <span>Password:</span>
+                <input type="text" value="messtrackadmin" readonly id="ma-pass">
+                <button onclick="copyText('ma-pass')">Copy</button>
+            </div>
+        </div>
+
+        <!-- Student -->
+        <div class="card">
+            <h3>Student Login</h3>
+
+            <div class="field">
+                <span>Username:</span>
+                <input type="text" value="amrita203" readonly id="st-user">
+                <button onclick="copyText('st-user')">Copy</button>
+            </div>
+
+            <div class="field">
+                <span>Password:</span>
+                <input type="text" value="password123" readonly id="st-pass">
+                <button onclick="copyText('st-pass')">Copy</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='sample_logins.js') }}"></script>
+</body>
+
+</html>

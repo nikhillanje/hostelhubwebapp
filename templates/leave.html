@@ -5,58 +5,86 @@
     <meta charset="UTF-8">
     <title>MessTrack - Leave Application</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='leave.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
 </head>
 
 <body>
-    <a href="{{ url_for('index') }}" class="back-button">Back</a>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="brand-navbar">🏢 <span>HostelHub Leave</span></div>
+        <a href="{{ url_for('index') }}" class="back-button" title="Go back">Back</a>
+    </nav>
+
     <div class="form-container">
-        <h2>Leave Application MessTrack</h2>
+        <h2>Leave Application Form</h2>
 
         <form action="/leave" method="POST">
-            <p>Date: <input type="text" value="{{ current_date }}" readonly></p>
 
-            <p>
-                I am <input type="text" name="student_name" value="{{ student_name }}">,
-                studying in year <input type="text" name="student_class" value="{{ student_class }}">,
-            </p>
+            <div class="form-group">
+                <label>Date</label>
+                <input type="text" value="{{ current_date }}" readonly>
+            </div>
 
-            <p>
-                Branch is <input type="text" name="room_no" value="{{ room_no }}">,
-                want's to leave MessTrack for
-                <input type="number" name="no_of_days" required> days,
-            </p>
+            <div class="form-group">
+                <label>Student Name</label>
+                <input type="text" name="student_name" value="{{ student_name }}">
+            </div>
 
-            <p>
-                from <input type="date" name="from_date" required> to
-                <input type="date" name="to_date" required> as I am going out of station/native place.
-            </p>
+            <div class="form-group">
+                <label>Year</label>
+                <input type="text" name="student_class" value="{{ student_class }}">
+            </div>
 
-            <p>
-                I will report back to the MessTrack on <input type="date" name="return_date" required>.
-            </p>
+            <div class="form-group">
+                <label>Room / Branch</label>
+                <input type="text" name="room_no" value="{{ room_no }}">
+            </div>
 
-            <p>Kindly grant me the leave.</p>
+            <div class="form-group">
+                <label>No. of Days</label>
+                <input type="number" name="no_of_days" required>
+            </div>
 
-            <br>
+            <div class="form-row">
+                <div>
+                    <label>From Date</label>
+                    <input type="date" name="from_date" required>
+                </div>
+                <div>
+                    <label>To Date</label>
+                    <input type="date" name="to_date" required>
+                </div>
+            </div>
 
-            <p>Student Contact No.: <input type="text" name="student_contact" value="{{ student_contact }}"
-                    placeholder="xxxxxxxxxx">
-            </p>
+            <div class="form-group">
+                <label>Return Date</label>
+                <input type="date" name="return_date" required>
+            </div>
 
-            <p>Parent's Contact No.: <input type="text" name="parent_contact" value="{{ parent_contact }}"
-                    placeholder="xxxxxxxxxx"></p>
+            <div class="form-group">
+                <label>Student Contact No.</label>
+                <input type="text" name="student_contact" value="{{ student_contact }}" placeholder="xxxxxxxxxx">
+            </div>
 
-            <p>Parent's Consent:
+            <div class="form-group">
+                <label>Parent Contact No.</label>
+                <input type="text" name="parent_contact" value="{{ parent_contact }}" placeholder="xxxxxxxxxx">
+            </div>
+
+            <div class="form-group">
+                <label>Parent Consent</label>
                 <select name="parent_consent" required>
                     <option value="">--Select--</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
                 </select>
-            </p>
+            </div>
 
-            <button type="submit">Submit Application</button>
+            <button type="submit" class="submit-btn">Submit Application</button>
         </form>
     </div>
+
 </body>
 
 </html>

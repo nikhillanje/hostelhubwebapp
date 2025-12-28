@@ -6,15 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Mess Time-Table</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='timetable.css') }}" />
-    <!-- For download -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
 </head>
 
 <body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="brand">🏢 HostelHub Time-Table</div>
+        <a href="{{ url_for('index') }}" class="back-btn">Back</a>
+    </nav>
+
+    <!-- MAIN CONTAINER -->
     <div class="container">
         <h1>Mess Time-Table</h1>
-        <table>
+
+        <table class="timetable">
             <thead>
                 <tr>
                     <th rowspan="2">Day</th>
@@ -31,24 +40,28 @@
                     <th>Time</th>
                 </tr>
             </thead>
+
             <tbody>
                 {% for item in timetable %}
                 <tr>
-                    <td class="day">{{ item.day }}</td>
-                    <td>{{ item.breakfast or "NULL" }}</td>
-                    <td>{{ item.breakfast_time or "N/A" }}</td>
-                    <td>{{ item.lunch or "NULL" }}</td>
-                    <td>{{ item.lunch_time or "N/A" }}</td>
-                    <td>{{ item.dinner or "NULL" }}</td>
-                    <td>{{ item.dinner_time or "N/A" }}</td>
+                    <td class="day" data-label="Day">{{ item.day }}</td>
+
+                    <td data-label="Breakfast Menu">{{ item.breakfast or "NULL" }}</td>
+                    <td data-label="Breakfast Time">{{ item.breakfast_time or "N/A" }}</td>
+
+                    <td data-label="Lunch Menu">{{ item.lunch or "NULL" }}</td>
+                    <td data-label="Lunch Time">{{ item.lunch_time or "N/A" }}</td>
+
+                    <td data-label="Dinner Menu">{{ item.dinner or "NULL" }}</td>
+                    <td data-label="Dinner Time">{{ item.dinner_time or "N/A" }}</td>
                 </tr>
+
                 {% endfor %}
             </tbody>
         </table>
 
-        <div class="button-group">
-            <button id="download">Download</button>
-            <button onclick="window.location.href='/index'">Back</button>
+        <div class="btn-group">
+            <button id="download">Download PDF</button>
         </div>
     </div>
 

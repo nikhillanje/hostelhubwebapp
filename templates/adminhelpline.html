@@ -3,22 +3,190 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="{{ url_for('static', filename='adminhelpline.css') }}">
-    <title>Set Helpline Number</title>
+    <title>Set Helpline Number - HostelHub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+
+    <style>
+        /* ================= RESET ================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", system-ui, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #eef2ff, #dbe7ff);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ================= NAVBAR ================= */
+        .navbar {
+            width: 100%;
+            background: linear-gradient(90deg, #7b2ff7, #3c8dff);
+            color: #fff;
+            padding: 14px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .navbar-title {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .nav-back {
+            color: #fff;
+            text-decoration: none;
+            font-size: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 14px;
+            border-radius: 8px;
+        }
+
+        .nav-back:hover {
+            background: rgba(255, 255, 255, 0.35);
+        }
+
+        /* ================= FORM WRAPPER ================= */
+        .form-wrapper {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .helpline-card {
+            background: #ffffff;
+            width: 100%;
+            max-width: 420px;
+            padding: 28px;
+            border-radius: 18px;
+            box-shadow: 0 14px 30px rgba(37, 99, 235, 0.25);
+            text-align: center;
+        }
+
+        .helpline-card h2 {
+            margin-bottom: 20px;
+            color: #1e293b;
+            font-size: 22px;
+        }
+
+        .helpline-card input {
+            width: 100%;
+            padding: 14px;
+            font-size: 16px;
+            border-radius: 10px;
+            border: 1.8px solid #c7d2fe;
+            outline: none;
+            margin-bottom: 16px;
+        }
+
+        .helpline-card input:focus {
+            border-color: #6366f1;
+        }
+
+        .helpline-card button {
+            width: 100%;
+            padding: 14px;
+            font-size: 16px;
+            background: linear-gradient(90deg, #7b2ff7, #3c8dff);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .helpline-card button:hover {
+            opacity: 0.9;
+        }
+
+        .error-msg {
+            color: #dc2626;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+        .success-msg {
+            color: #16a34a;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        /* ================= MOBILE ================= */
+        @media (max-width: 480px) {
+            .navbar-title {
+                font-size: 18px;
+            }
+
+            .helpline-card {
+                padding: 22px;
+            }
+
+            .helpline-card h2 {
+                font-size: 20px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <a href="{{ url_for('adminindex') }}" class="back-button">Back</a>
-    <h2>Enter 10-digit Helpline Number</h2>
-    <form name="helplineForm" method="POST" onsubmit="return validateForm()">
-        <input type="text" name="helpline" maxlength="10" placeholder="Enter 10-digit number" required>
-        <button type="submit">Set</button>
-    </form>
 
-    {% if message %}
-    <p style="color: green;">{{ message }}</p>
-    {% endif %}
-    <script src="{{ url_for('static', filename='adminhelpline.js') }}"></script>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="navbar-title">📞 Set Helpline Number</div>
+        <a href="{{ url_for('xHostelIndex') }}" class="nav-back">Back</a>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <div class="form-wrapper">
+        <form name="helplineForm" method="POST" onsubmit="return validateForm()" class="helpline-card">
+
+            <h2>Enter 10-digit Helpline Number</h2>
+
+            <input type="text" name="helpline" id="helpline" placeholder="Enter 10-digit number" maxlength="10"
+                inputmode="numeric" autocomplete="off" required>
+
+            <p id="error" class="error-msg"></p>
+
+            <button type="submit">Save Number</button>
+
+            {% if message %}
+            <p class="success-msg">{{ message }}</p>
+            {% endif %}
+        </form>
+    </div>
+
+    <script>
+        const helplineInput = document.getElementById("helpline");
+        const errorMsg = document.getElementById("error");
+
+        /* Allow only digits while typing */
+        helplineInput.addEventListener("input", function () {
+            this.value = this.value.replace(/[^0-9]/g, "");
+        });
+
+        function validateForm() {
+            const value = helplineInput.value;
+
+            if (!/^[0-9]{10}$/.test(value)) {
+                errorMsg.textContent = "❌ Please enter exactly 10 digits (numbers only).";
+                return false;
+            }
+
+            errorMsg.textContent = "";
+            return true;
+        }
+    </script>
+
 </body>
 
 </html>

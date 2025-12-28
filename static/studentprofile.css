@@ -1,0 +1,178 @@
+/* =========================
+   THEME VARIABLES
+========================= */
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1e40af;
+    --secondary: #3b82f6;
+    --bg-main: linear-gradient(135deg, #eef2ff, #dbe7ff);
+    --bg-card: #ffffff;
+    --text-dark: #0f172a;
+    --text-muted: #475569;
+    --accent: #6a0dad;
+    --radius-lg: 24px;
+    --radius-md: 14px;
+    --shadow-soft: 0 8px 22px rgba(0, 0, 0, 0.18);
+    --shadow-strong: 0 18px 40px rgba(0, 0, 0, 0.22);
+}
+
+/* =========================
+   RESET
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+/* =========================
+   BODY
+========================= */
+body {
+    background: var(--bg-main);
+    min-height: 100vh;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    padding: 14px 36px;
+    color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 22px;
+    font-weight: 800;
+    z-index: 1000;
+    box-shadow: var(--shadow-soft);
+}
+
+/* BACK BUTTON – CONSISTENT + MARGIN */
+.navbar-back {
+    background: #ffffff;
+    color: var(--primary);
+    padding: 10px 24px;
+    border-radius: 999px;
+    font-size: 18px;
+    font-weight: 700;
+    text-decoration: none;
+    margin-right: 30px;
+    /* ✅ As requested */
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    transition: all 0.25s ease;
+}
+
+.navbar-back:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.3);
+}
+
+/* =========================
+   PROFILE CARD
+========================= */
+.profile-card {
+    max-width: 900px;
+    margin: 120px auto 40px;
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    padding: 42px;
+    box-shadow: var(--shadow-strong);
+}
+
+/* =========================
+   TEXT
+========================= */
+.title {
+    color: var(--text-dark);
+    font-weight: 900;
+    font-size: 26px;
+}
+
+.username {
+    color: var(--text-muted);
+    font-size: 15px;
+}
+
+/* =========================
+   PROFILE IMAGE / ICON
+========================= */
+.profile-img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.35);
+}
+
+.profile-icon {
+    font-size: 140px;
+    color: var(--primary);
+}
+
+/* =========================
+   SECTION TITLES
+========================= */
+.section-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--primary);
+    margin: 22px 0 12px;
+}
+
+.info-label {
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+/* =========================
+   EDIT BUTTON
+========================= */
+.edit-btn {
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    padding: 12px 26px;
+    border-radius: var(--radius-md);
+    display: inline-block;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 800;
+    transition: transform 0.15s ease, box-shadow 0.25s ease;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.22);
+}
+
+.edit-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
+}
+
+/* =========================
+   HR
+========================= */
+hr {
+    border: none;
+    border-top: 2px solid #e5e7eb;
+    margin: 24px 0;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+    .profile-card {
+        padding: 32px 22px;
+        margin-top: 130px;
+    }
+
+    .navbar {
+        font-size: 20px;
+    }
+
+    .navbar-back {
+        margin-right: 20px;
+    }
+}

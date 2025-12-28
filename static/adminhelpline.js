@@ -1,10 +1,9 @@
 function validateForm() {
-    const number = document.forms["helplineForm"]["helpline"].value;
-    const pattern = /^\d{10}$/;
+    let num = document.helplineForm.helpline.value;
 
-    if (!pattern.test(number)) {
+    if (!/^[0-9]{10}$/.test(num)) {
         alert("Please enter a valid 10-digit number.");
-        return false; // prevent form submission
+        return false;
     }
-    return true; // allow form submission
+    return true;
 }

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Rooms Overview</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: #eef2ff;
+        }
+
+        /* ===== Top Header ===== */
+        .top-bar {
+            width: 100%;
+            padding: 18px 30px;
+            background: linear-gradient(90deg, #7b2ff7, #3f8cff);
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-btn {
+            background: #ffffff;
+            color: #2563eb;
+
+            padding: 10px 22px;
+            /* SAME SIZE */
+            border-radius: 999px;
+            /* PERFECT PILL */
+
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 800;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+            transition: 0.25s ease;
+        }
+
+
+
+        /* ===== Page Wrapper ===== */
+        .page-wrapper {
+            padding: 40px 30px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* ===== Card ===== */
+        .container {
+            background: white;
+            width: 100%;
+            max-width: 1200px;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
+            animation: fadeIn 0.6s ease;
+        }
+
+        h2 {
+            text-align: center;
+            color: #1f2937;
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+
+        /* ===== Filter ===== */
+        .filter-box {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .filter-box select {
+            padding: 10px 14px;
+            font-size: 15px;
+            border-radius: 8px;
+            border: 1px solid #d1d5db;
+        }
+
+        /* ===== Grid ===== */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 12px;
+        }
+
+        .room {
+            padding: 18px 10px;
+            border-radius: 14px;
+            background: #ffffff;
+            border: 2px solid #c7d2fe;
+            text-align: center;
+            font-size: 15px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .room:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+        }
+
+        .green {
+            background: #dcfce7;
+            border-color: #22c55e;
+        }
+
+        .red {
+            background: #fee2e2;
+            border-color: #ef4444;
+        }
+
+        .icon {
+            font-size: 24px;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        small {
+            color: #374151;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <div class="top-bar">
+        Rooms Overview
+        <a href="javascript:history.back()" class="back-btn">Back</a>
+    </div>
+
+    <!-- Content -->
+    <div class="page-wrapper">
+        <div class="container">
+
+            <!-- Filter -->
+            <div class="filter-box">
+                <select id="roomFilter" onchange="filterRooms()">
+                    <option value="all">All Rooms</option>
+
+                    <option value="g">Only G Rooms</option>
+                    <option value="f">Only F Rooms</option>
+
+                    <option value="g1">G-01 to G-100</option>
+                    <option value="g2">G-101 to G-200</option>
+                    <option value="g3">G-201 to G-300</option>
+
+                    <option value="f1">F-01 to F-100</option>
+                    <option value="f2">F-101 to F-200</option>
+                </select>
+            </div>
+
+            <!-- Rooms Grid -->
+            <div class="grid" id="roomsGrid">
+                {% for r in rooms %}
+                <div class="room 
+                    {% if r.count == 1 %} green 
+                    {% elif r.count >= 2 %} red 
+                    {% endif %}" data-room="{{ r.room_no }}">
+
+                    <span class="icon">🏠</span>
+                    {{ r.room_no }} <br>
+                    <small>Allocated: {{ r.count }}</small>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+
+    <!-- JS (unchanged) -->
+    <script>
+        function filterRooms() {
+            let filter = document.getElementById("roomFilter").value;
+            let rooms = document.querySelectorAll(".room");
+
+            rooms.forEach(room => {
+                let rn = room.getAttribute("data-room");
+                let [floor, num] = rn.split("-");
+                num = parseInt(num);
+
+                let show = true;
+
+                if (filter === "g") show = floor === "G";
+                else if (filter === "f") show = floor === "F";
+                else if (filter === "g1") show = floor === "G" && num >= 1 && num <= 100;
+                else if (filter === "g2") show = floor === "G" && num >= 101 && num <= 200;
+                else if (filter === "g3") show = floor === "G" && num >= 201 && num <= 300;
+                else if (filter === "f1") show = floor === "F" && num >= 1 && num <= 100;
+                else if (filter === "f2") show = floor === "F" && num >= 101 && num <= 200;
+
+                room.style.display = show ? "" : "none";
+            });
+        }
+    </script>
+
+</body>
+
+</html>

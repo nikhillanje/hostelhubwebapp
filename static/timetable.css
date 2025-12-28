@@ -1,86 +1,272 @@
-/* Reset and base */
+/* =========================
+   THEME VARIABLES
+========================= */
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1e40af;
+    --secondary: #3b82f6;
+    --bg-main: linear-gradient(135deg, #eef2ff, #dbe7ff);
+    --bg-card: #ffffff;
+    --text-dark: #0f172a;
+    --text-muted: #475569;
+    --border-light: #d1d5db;
+    --radius-lg: 24px;
+    --radius-md: 14px;
+    --shadow-soft: 0 8px 22px rgba(0, 0, 0, 0.18);
+    --shadow-strong: 0 18px 40px rgba(0, 0, 0, 0.22);
+}
+
+/* =========================
+   RESET
+========================= */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Segoe UI", system-ui, sans-serif;
 }
 
+/* =========================
+   BODY
+========================= */
 body {
-    background: linear-gradient(135deg, #ae91db, #ab9c9c);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background: var(--bg-main);
     min-height: 100vh;
-    padding: 20px;
+    padding-top: 110px;
 }
 
-.container {
-    background-color: #e8e0e0;
-    padding: 40px;
-    border-radius: 16px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-    max-width: 1000px;
+/* =========================
+   NAVBAR
+========================= */
+.navbar {
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    padding: 14px 46px;
+    position: fixed;
+    top: 0;
     width: 100%;
-    text-align: center;
+    color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 800;
+    font-size: 22px;
+    box-shadow: var(--shadow-soft);
+    z-index: 1000;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* BACK BUTTON – CONSISTENT */
+.back-btn {
+    background: #ffffff;
+    color: var(--primary);
+    padding: 10px 24px;
+    border-radius: 999px;
+    font-size: 18px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.back-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.3);
+}
+
+/* =========================
+   MAIN CONTAINER
+========================= */
+.container {
+    background: var(--bg-card);
+    width: 92%;
+    max-width: 1150px;
+    margin: auto;
+    padding: 36px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-strong);
 }
 
 .container h1 {
-    margin-bottom: 30px;
+    text-align: center;
+    margin-bottom: 28px;
     font-size: 32px;
-    color: #333;
+    font-weight: 900;
+    color: var(--text-dark);
 }
 
-table {
+/* =========================
+   TABLE
+========================= */
+.timetable {
     width: 100%;
     border-collapse: collapse;
-    background-color: #f9f9f9;
-    margin-bottom: 30px;
+    overflow: hidden;
+    border-radius: var(--radius-md);
 }
 
-th,
-td {
-    padding: 12px 15px;
-    border: 1px solid #ccc;
+/* HEADER */
+.timetable thead th {
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    color: #ffffff;
+    padding: 14px;
+    font-size: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    font-weight: 800;
+}
+
+/* BODY */
+.timetable td {
+    padding: 14px;
+    border: 1px solid var(--border-light);
     text-align: center;
     font-size: 15px;
-}
-
-th {
-    background-color: #e0d8f5;
-    color: #222;
-    border: 2px solid black;
+    color: var(--text-dark);
+    background: #ffffff;
 }
 
 .day {
-    background-color: #f2efff;
-    font-weight: bold;
+    font-weight: 800;
+    color: var(--primary-dark);
 }
 
-tr:hover td {
-    background-color: #f0f7ff;
-    transition: 0.3s;
+/* ROW HOVER */
+.timetable tbody tr:hover td {
+    background: #f1f5ff;
+    transition: background 0.2s ease;
 }
 
-.button-group {
+/* =========================
+   BUTTON GROUP
+========================= */
+.btn-group {
+    margin-top: 30px;
     display: flex;
     justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
 }
 
 button {
-    padding: 12px 25px;
+    padding: 14px 28px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    color: #ffffff;
+    font-weight: 800;
     border: none;
-    border-radius: 8px;
-    background-color: #7b2ff7;
-    color: white;
-    font-weight: bold;
     font-size: 16px;
+    border-radius: var(--radius-md);
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.22);
+    transition: transform 0.15s ease, box-shadow 0.25s ease;
 }
 
 button:hover {
-    background-color: #5e20c6;
+    transform: translateY(-1px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 900px) {
+    .container {
+        padding: 26px 20px;
+    }
+
+    .container h1 {
+        font-size: 26px;
+    }
+
+    .timetable th,
+    .timetable td {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+/* -------- Mobile Phones -------- */
+@media (max-width: 768px) {
+
+    /* KEEP NAVBAR SAME AS DESKTOP */
+    .navbar {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 16px;
+        font-size: 18px;
+    }
+
+    .brand {
+        font-size: 16px;
+        white-space: nowrap;
+    }
+
+    .back-btn {
+        font-size: 14px;
+        padding: 6px 16px;
+    }
+
+    /* ===== TABLE → CARD VIEW ===== */
+    .timetable,
+    .timetable thead,
+    .timetable tbody,
+    .timetable th,
+    .timetable td,
+    .timetable tr {
+        display: block;
+        width: 100%;
+    }
+
+    .timetable thead {
+        display: none;
+    }
+
+    .timetable tbody tr {
+        background: #ffffff;
+        margin-bottom: 18px;
+        border-radius: 14px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+        padding: 14px;
+    }
+
+    .timetable td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 8px;
+        border: none;
+        border-bottom: 1px solid #e5e7eb;
+        font-size: 14px;
+        text-align: left;
+    }
+
+    .timetable td:last-child {
+        border-bottom: none;
+    }
+
+    .timetable td::before {
+        font-weight: 800;
+        color: var(--primary-dark);
+        content: attr(data-label);
+    }
+
+    .day {
+        font-size: 16px;
+        justify-content: center;
+        font-weight: 900;
+        background: #eef2ff;
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }
+
+    button {
+        width: 100%;
+        font-size: 15px;
+        padding: 12px;
+    }
 }

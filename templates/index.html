@@ -4,124 +4,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MessTrack</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}"> <!-- Your custom CSS -->
+    <title>MessTrack - HostelHub</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
 </head>
 
 <body>
-    <!-- Header -->
-    <header>
-        <nav>
-            <div class="menu_icon">
-                <i class="bi bi-list"></i> <!-- Sidebar Toggle Icon -->
-            </div>
-            <div class="logo">
-                <h1 class="h1logo">MessTrack</h1>
-            </div>
-            <ul class="nav-links">
-                <li><a href="{{ url_for('feedback') }}">Feedback</a></li>
-                <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
-            </ul>
-            <button class="mode-toggle" onclick="toggleMode()">
-                <i class="bi bi-moon-fill"></i>
-            </button>
-            <!-- Sidebar -->
-            <div id="sidebar" class="sidebar">
-                <ul>
-                    <li><a href="#"><i class="bi bi-calendar3" style="color: transparent;"></i></a></li>
-                    <li><a href="{{ url_for('timetable') }}"><i class="bi bi-calendar3"></i> Time Table</a></li>
-                    <li><a href="{{ url_for('attendance') }}"><i class="bi bi-person-check"></i> Attendance</a></li>
-                    <li><a href="{{ url_for('menu') }}"><i class="bi bi-list-ul"></i> Menu</a></li>
-                    <li><a href="{{ url_for('bill') }}"><i class="bi bi-receipt"></i> Bills</a></li>
-                    <li><a href="{{ url_for('notification') }}"><i class="bi bi-bell-fill"></i> Notifications</a></li>
-                    <li><a href="{{ url_for('leave') }}"><i class="bi bi-door-open"></i> Leave</a></li>
-                    <li><a href="{{ url_for('logout') }}" onclick="return confirmLogout();"
-                            class="bi bi-box-arrow-right"> Logout</a></li>
-                </ul>
-            </div>
-        </nav>
-        <!-- LED-style Scrolling Text -->
-        <div class="led-banner">
-            <div class="led-text" id="ledText"> Welcome to MessTrack @{{ username }}</div>
-        </div>
-    </header>
 
-    <!-- Main Content -->
+    <!-- ================= NAVBAR ================= -->
+    <nav class="navbar">
+
+        <!-- Sidebar Toggle Button -->
+        <div class="menu_icon">
+            <i class="bi bi-list"></i>
+        </div>
+
+        <!-- Logo -->
+        <div class="logo">
+            {% if allocated_room %}
+            <h1 class="h1logo">HostelHub ({{ allocated_room }})</h1>
+            {% else %}
+            <h1 class="h1logo">HostelHub (-)</h1>
+            {% endif %}
+        </div>
+
+        <!-- Navigation Links -->
+        <ul class="nav-links">
+            <li>
+                <a href="{{ url_for('feedback') }}">
+                    <i class="bi bi-chat-dots"></i> Feedback
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('contact') }}">
+                    <i class="bi bi-telephone"></i> Contact Us
+                </a>
+            </li>
+        </ul>
+
+        <!-- Dark Mode Toggle -->
+        <button class="mode-toggle" onclick="toggleMode()">
+            <i class="bi bi-moon-fill" id="themeIcon"></i>
+        </button>
+
+
+        <!-- Profile Icon -->
+        <a href="/studentprofile" class="profile-link">
+            {% if profile and profile.profile_photo %}
+            <img src="{{ url_for('static', filename='profile_pics/' + profile.profile_photo) }}">
+            {% else %}
+            <i class="bi bi-person-circle"></i>
+            {% endif %}
+            <span>Your Profile</span>
+        </a>
+    </nav>
+
+    <!-- ================= SIDEBAR ================= -->
+    <div id="sidebar" class="sidebar">
+        <!-- Sidebar Heading -->
+        <div style="
+        font-size: 22px;
+        font-weight: bold;
+        text-align: center;
+        padding: 14px 10px 10px;
+        color: white;
+        margin-bottom: 5px;
+    ">
+            HostelHub
+        </div>
+        <ul>
+            <li><a href="{{ url_for('timetable') }}"><i class="bi bi-calendar3"></i> Time Table</a></li>
+            <li><a href="{{ url_for('attendance') }}"><i class="bi bi-person-check"></i> Attendance</a></li>
+            <li><a href="{{ url_for('menu') }}"><i class="bi bi-list-ul"></i> Menu</a></li>
+            <li><a href="{{ url_for('hostel_fees') }}"><i class="bi bi-building"></i> Hostel Fees</a></li>
+            <li><a href="{{ url_for('bill') }}"><i class="bi bi-receipt"></i> Mess Fees</a></li>
+            <li><a href="{{ url_for('notification') }}"><i class="bi bi-bell-fill"></i> Notifications</a></li>
+            <li><a href="{{ url_for('leave') }}"><i class="bi bi-door-open"></i> Leave Application </a></li>
+            <li>
+                <a href="{{ url_for('messleave') }}">
+                    <i class="bi bi-person-check"></i> Mess Leave
+                </a>
+            </li>
+
+            <li><a href="{{ url_for('logout') }}" onclick="return confirmLogout();"><i
+                        class="bi bi-box-arrow-right"></i>
+                    Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- ================= LED SCROLLER ================= -->
+    <div class="led-banner">
+        <div class="led-text">Welcome to HostelHub @{{ username }}</div>
+    </div>
+
+    <!-- ================= MAIN CONTENT ================= -->
     <div class="container my-5">
         <div class="row g-4">
-            <div class="col-md-6 col-lg-3 d-flex">
-                <div class="feature-card text-center p-4">
-                    <i class="bi bi-calendar3 display-1"></i>
-                    <h2><a href="#" style="text-decoration: none;">Time Table</a></h2>
-                    <p>View and manage the weekly schedule of meals.</p>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 d-flex">
-                <div class="feature-card text-center p-4">
-                    <i class="bi bi-person-check display-1"></i>
-                    <h2><a href="#" style="text-decoration: none;">Daily Attendance</a></h2>
-                    <p>Track daily attendance of students for meals.</p>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 d-flex">
-                <div class="feature-card text-center p-4">
-                    <i class="bi bi-list-ul display-1"></i>
-                    <h2><a href="#" style="text-decoration: none;">Menu Display</a></h2>
-                    <p>Display daily or weekly menu for meals.</p>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 d-flex">
-                <div class="feature-card text-center p-4">
-                    <i class="bi bi-receipt display-1"></i>
-                    <h2><a href="#" style="text-decoration: none;">Bills</a></h2>
-                    <p>Generate monthly bills for mess fees and extras.</p>
-                </div>
-            </div>
 
+            {% set cards = [
+            ('timetable', 'bi-calendar3', 'Time Table', 'View and manage the weekly schedule of meals.'),
+            ('attendance', 'bi-person-check', 'Daily Attendance', 'Track daily attendance of students for meals.'),
+            ('menu', 'bi-list-ul', 'Menu Display', 'Display daily or weekly menu for meals.'),
+            ('bill', 'bi-receipt', 'Bills', 'Generate monthly bills for mess fees and extras.'),
+            ('notification', 'bi-bell-fill', 'Notifications', 'Receive updates and alerts regarding mess activities.'),
+            ('leave', 'bi-door-open', 'Leave', 'Manage requests for leave from mess facilities.'),
+            ('feedback', 'bi-chat-left-text-fill', 'Feedbacks', 'Provide feedback and complaints regarding mess
+            services.'),
+            ('contact', 'bi-envelope-fill', 'Contact Us', 'Get in touch with us for any queries or support.')
+            ] %}
+
+            {% for link, icon, title, desc in cards %}
             <div class="col-md-6 col-lg-3 d-flex">
-                <div class="feature-card text-center p-4">
-                    <i class="bi bi-bell-fill display-1"></i>
-                    <h2><a href="#" style="text-decoration: none;">Notifications</a></h2>
-                    <p>Receive updates and alerts regarding mess activities.</p>
-                </div>
+                <a href="{{ url_for(link) }}" class="feature-card text-center p-4">
+                    <i class="bi {{ icon }}"></i>
+                    <h2>{{ title }}</h2>
+                    <p>{{ desc }}</p>
+                </a>
             </div>
-
-
-            <div class="col-md-6 col-lg-3 d-flex">
-                <div class="feature-card text-center p-4">
-                    <i class="bi bi-door-open display-1"></i>
-                    <h2><a href="#" style="text-decoration: none;">Leave</a></h2>
-                    <p>Manage requests for leave from mess facilities.</p>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-3 d-flex">
-                <div class="feature-card text-center p-4">
-                    <i class="bi bi-chat-left-text-fill display-1"></i>
-                    <h2><a href="#" style="text-decoration: none;">Feedbacks</a>
-                    </h2>
-                    <p>Provide feedback and lodge complaints regarding mess services.</p>
-                </div>
-            </div>
-
-
-            <div class="col-md-6 col-lg-3 d-flex">
-                <div class="feature-card text-center p-4">
-                    <i class="bi bi-envelope-fill display-1"></i>
-                    <h2><a href="#" style="text-decoration: none;">Contact Us</a></h2>
-                    <p>Get in touch with us for any queries or support.</p>
-                </div>
-            </div>
+            {% endfor %}
 
         </div>
     </div>
 
-    <!-- Footer -->
+    <!-- ================= FOOTER ================= -->
     <footer class="footer">
-        <p>&copy; 2025 MessTrack. All rights reserved.</p>
+        <p>&copy; 2025 HostelHub. All rights reserved.</p>
     </footer>
 
     <script src="{{ url_for('static', filename='index.js') }}"></script>

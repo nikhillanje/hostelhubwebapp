@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>All Complaints - HostelHub</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='admincomplaints.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-title">All Complaints</div>
+        <a href="#" onclick="history.back()" class="nav-back">Back</a>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+
+        <h2>All Complaints</h2>
+
+        {% for complaint in complaints %}
+        <div class="complaint-card">
+
+            <div class="complaint-text">
+                <p>{{ complaint.message }}</p>
+                <div class="complaint-date">
+                    {{ complaint.timestamp.strftime('%d-%m-%Y %H:%M:%S') }}
+                </div>
+            </div>
+
+            {% if complaint.media %}
+            {% set ext = complaint.media.split('.')[-1].lower() %}
+
+            {% if ext in ['jpg','jpeg','png','gif'] %}
+            <img src="{{ url_for('static', filename='uploads/' + complaint.media) }}" class="complaint-media">
+
+            {% elif ext in ['mp4','webm','ogg'] %}
+            <video controls class="complaint-media">
+                <source src="{{ url_for('static', filename='uploads/' + complaint.media) }}">
+            </video>
+            {% endif %}
+            {% endif %}
+
+        </div>
+        {% else %}
+        <p class="no-data">No complaints found.</p>
+        {% endfor %}
+
+    </div>
+
+</body>
+
+</html>

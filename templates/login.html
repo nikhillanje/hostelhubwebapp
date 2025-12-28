@@ -4,23 +4,29 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login Page</title>
+    <title>Login Page - HostelHub</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}" />
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
 </head>
 
 <body>
-    <!-- Go Back Button -->
-    <a href="{{ url_for('home') }}" class="back-button" title="Go back">×</a>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="brand">🏢 <span>HostelHub</span></div>
+        <a href="{{ url_for('home') }}" class="back-button" title="Go back">Back</a>
+    </nav>
+
+    <!-- LOGIN WRAPPER -->
     <div class="container">
         <div class="left">
 
-
-
-            <div class="brand">
+            <div class="brand-left">
                 <span class="logo"></span>
-                <h3>WELCOME TO MESSTRACK</h3>
+                <h3>WELCOME TO HOSTELHUB</h3>
             </div>
-            <p>Hey, welcome back to MessTrack</p>
+
+            <p>Hey, welcome back to HostelHub</p>
 
             <!-- Flash Messages -->
             {% with messages = get_flashed_messages(with_categories=true) %}
@@ -35,17 +41,18 @@
             {% endif %}
             {% endwith %}
 
-            <!-- Login Form -->
+            <!-- FORM -->
             <form method="POST" autocomplete="off">
                 {{ form.hidden_tag() }}
-                {{ form.username(placeholder="Username" , autocomplete="new-username") }}
-                {{ form.password(placeholder="Password" , autocomplete="new-password") }}
 
-                <!-- Captcha block -->
+                {{ form.username(placeholder="Username", autocomplete="new-username") }}
+                {{ form.password(placeholder="Password", autocomplete="new-password") }}
+
                 <div class="captcha-block">
                     <span class="captcha-text">{{ captcha }}</span>
                     <button class="refresh-captcha" type="button" onclick="location.reload();">&#x21bb;</button>
                 </div>
+
                 {{ form.captcha(placeholder="Enter Captcha") }}
 
                 <div class="options">
@@ -60,18 +67,19 @@
                 </p>
             </form>
 
-            <!-- Form Field Errors -->
             {% for field in form %}
             {% for error in field.errors %}
-            <div class="text-danger small">{{ error }}</div>
+            <div class="text-danger">{{ error }}</div>
             {% endfor %}
             {% endfor %}
         </div>
 
+        <!-- IMAGE PANEL -->
         <div class="right">
-            <img src="{{ url_for('static', filename='loginimage.jpg') }}" alt="login" />
+            <img src="{{ url_for('static', filename='loginimage.png') }}" alt="login" />
         </div>
     </div>
+
     <script src="{{ url_for('static', filename='login.js') }}"></script>
 </body>
 

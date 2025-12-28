@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Mess Leave - HostelHub</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='messleave.css') }}">
+</head>
+
+<body>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="logo">🏨 HostelHub - Mark Your Mess Leave Attendance </div>
+        <a href="javascript:history.back()" class="back-btn">Back</a>
+    </div>
+
+    <!-- Main Card -->
+    <div class="card">
+        <h2>Mess Leave (Absent)</h2>
+        <div id="dates" class="dates-row"></div>
+    </div>
+
+    <script>
+        // ✅ SMART & SAFE DATE LOGIC
+        function getRemainingMonthDates() {
+            const dates = [];
+            const today = new Date();
+
+            let start = new Date(
+                today.getFullYear(),
+                today.getMonth(),
+                today.getDate() + 1   // tomorrow
+            );
+
+            let end = new Date(
+                today.getFullYear(),
+                today.getMonth() + 1,
+                0   // last day of current month
+            );
+
+            // ✅ If month already finished → show next month fully
+            if (start > end) {
+                start = new Date(today.getFullYear(), today.getMonth() + 1, 1);
+                end = new Date(today.getFullYear(), today.getMonth() + 2, 0);
+            }
+
+            while (start <= end) {
+                const y = start.getFullYear();
+                const m = String(start.getMonth() + 1).padStart(2, '0');
+                const d = String(start.getDate()).padStart(2, '0');
+
+                dates.push(`${y}-${m}-${d}`);
+                start.setDate(start.getDate() + 1);
+            }
+
+            return dates;
+        }
+
+        function loadLeaves() {
+            fetch("/get-mess-leave")
+                .then(res => res.json())
+                .then(marked => {
+                    const markedDates = marked.map(d => d.date);
+                    const allDates = getRemainingMonthDates();
+                    let html = "";
+
+                    allDates.forEach(date => {
+                        const dayNum = new Date(date).getDate();
+
+                        if (markedDates.includes(date)) {
+                            html += `
+                            <div class="day-card marked">
+                                <div class="day">${dayNum}</div>
+                                <button class="remove" onclick="removeLeave('${date}')">Remove</button>
+                            </div>`;
+                        } else {
+                            html += `
+                            <div class="day-card">
+                                <div class="day">${dayNum}</div>
+                                <button onclick="markLeave('${date}')">Absent</button>
+                            </div>`;
+                        }
+                    });
+
+                    document.getElementById("dates").innerHTML = html;
+                });
+        }
+
+        function markLeave(date) {
+            fetch("/mark-mess-leave", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ date })
+            }).then(() => loadLeaves());
+        }
+
+        function removeLeave(date) {
+            fetch("/remove-mess-leave", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ date })
+            }).then(() => loadLeaves());
+        }
+
+        loadLeaves();
+    </script>
+
+</body>
+
+</html>

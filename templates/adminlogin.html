@@ -6,15 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Login - MessTrack</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='adminlogin.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
 </head>
 
 <body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="brand-navbar">
+            🏢 <span>HostelHub Mess</span>
+        </div>
+        <a href="{{ url_for('home') }}" class="back-button" title="Go back">Back</a>
+    </nav>
     <div class="container">
-        <a href="{{ url_for('home') }}" id="back-button" class="back-button" title="Go back">×</a>
         <div class="left">
             <div class="brand">
                 <span class="logo"></span>
-                <h3>WELCOME TO MESSTRACK ADMIN</h3>
+                <h3>WELCOME TO HOSTELHUB MESS ADMIN</h3>
             </div>
 
             <!-- Flash Messages -->
@@ -60,7 +67,7 @@
         </div>
 
         <div class="right">
-            <img src="{{ url_for('static', filename='adminloginimage.jpg') }}" alt="Logo">
+            <img src="{{ url_for('static', filename='messloginlogo.png') }}" alt="Logo">
         </div>
     </div>
 

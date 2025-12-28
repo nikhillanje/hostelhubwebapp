@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Not Available</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #5f2c82, #49a09d);
+        }
+
+        .card {
+            background: white;
+            padding: 50px 60px;
+            border-radius: 22px;
+            text-align: center;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1.2s ease-in-out;
+        }
+
+        .icon {
+            font-size: 72px;
+            color: #6a1b9a;
+            animation: pulse 1.5s infinite;
+        }
+
+        h1 {
+            margin-top: 20px;
+            font-size: 34px;
+            color: #3f3d56;
+        }
+
+        p {
+            margin-top: 12px;
+            font-size: 16px;
+            color: #666;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 35px;
+            padding: 12px 34px;
+            background: white;
+            color: #1565c0;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            border: 2px solid #1565c0;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #1565c0;
+            color: white;
+            transform: scale(1.08);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.12);
+                opacity: 0.75;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+        <div class="icon">⚠️</div>
+        <h1>Not Available</h1>
+        <p>This feature is currently under development.<br>Please check back later.</p>
+        <a href="#" onclick="history.back()" class="btn">Go Back</a>
+    </div>
+
+</body>
+
+</html>

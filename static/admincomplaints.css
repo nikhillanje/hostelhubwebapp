@@ -1,0 +1,138 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* BACKGROUND */
+body {
+    background: #e5e7eb;
+    padding-top: 110px;
+    min-height: 100vh;
+}
+
+/* NAVBAR */
+.navbar {
+    background: linear-gradient(90deg, #7b2ff7, #3c8dff);
+    padding: 14px 40px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    color: white;
+    font-size: 24px;
+    font-weight: 800;
+
+    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    z-index: 999;
+}
+
+.nav-title {
+    letter-spacing: 1px;
+}
+
+.nav-back {
+    background: white;
+    color: #2563eb;
+    text-decoration: none;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+
+/* MAIN CONTENT WRAPPER */
+.container {
+    width: 90%;
+    max-width: 1000px;
+    margin: auto;
+}
+
+h2 {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 25px;
+    font-weight: 800;
+    color: #222;
+}
+
+/* COMPLAINT CARD */
+.complaint-card {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    margin-bottom: 20px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    transition: 0.2s;
+}
+
+.complaint-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+}
+
+.complaint-text {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.complaint-text p {
+    font-size: 17px;
+    color: #222;
+}
+
+.complaint-date {
+    font-size: 14px;
+    color: #666;
+    margin-top: 8px;
+}
+
+/* MEDIA */
+.complaint-media {
+    max-width: 260px;
+    max-height: 180px;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+video.complaint-media {
+    max-width: 260px;
+    max-height: 180px;
+}
+
+/* NO DATA */
+.no-data {
+    text-align: center;
+    font-size: 18px;
+    color: #666;
+    margin-top: 25px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .complaint-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .complaint-text {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .complaint-media {
+        max-width: 100%;
+    }
+}

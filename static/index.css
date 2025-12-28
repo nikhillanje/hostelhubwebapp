@@ -1,189 +1,172 @@
-/* Make the page take exactly 100% of the screen height */
-html,
-body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    font-family: 'Segoe UI', sans-serif;
+/* =========================
+   THEME VARIABLES
+========================= */
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1e40af;
+    --secondary: #3b82f6;
+    --accent: #6d28d9;
+    --bg-main: linear-gradient(135deg, #eef2ff, #dbe7ff);
+    --bg-card: #ffffff;
+    --bg-dark: #0f172a;
+    --text-dark: #0f172a;
+    --text-muted: #475569;
+    --radius-lg: 20px;
+    --radius-md: 14px;
+    --shadow-soft: 0 6px 18px rgba(0, 0, 0, 0.18);
+    --shadow-strong: 0 14px 35px rgba(37, 99, 235, 0.35);
 }
 
-/* WRAPPER CLASS FOR MAIN CONTENT */
-.main-content {
-    flex: 1;
-}
-
-/* Reset and base styles */
+/* =========================
+   RESET
+========================= */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: "Segoe UI", system-ui, sans-serif;
 }
 
+/* =========================
+   BODY
+========================= */
 body {
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #ffffff;
-    color: #333;
-    /* min-height removed; now handled by flexbox */
+    background: var(--bg-main);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
-
-/* Navigation bar */
-nav {
-    background-color: #8d61d4;
+/* =========================
+   NAVBAR
+========================= */
+.navbar {
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    padding: 14px 36px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 12px 30px;
-    color: white;
-}
-
-.menu_icon i {
-    font-size: 24px;
-    color: white;
-    cursor: pointer;
-}
-
-.logo .h1logo {
-    font-size: 30px;
-    font-weight: bold;
-    color: white;
-    margin: 0;
-    margin-left: 600px;
-}
-
-/* Make nav links align to the right */
-.nav-links {
-    display: flex;
-    list-style: none;
     gap: 20px;
+    color: #ffffff;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    box-shadow: var(--shadow-soft);
+}
+
+/* MENU ICON */
+.menu_icon i {
+    font-size: 30px;
+    cursor: pointer;
+    transition: 0.25s ease;
+    margin-left: 20px;
+}
+
+.menu_icon i:hover {
+    transform: scale(1.1);
+}
+
+/* LOGO */
+.logo .h1logo {
+    font-size: 26px;
+    font-weight: 900;
+    white-space: nowrap;
+}
+
+/* NAV LINKS */
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 26px;
     margin-left: auto;
-    padding-top: 10px;
 }
 
 .nav-links a {
+    color: #ffffff;
     text-decoration: none;
-    color: white;
-    font-weight: 500;
-    transition: color 0.3s;
+    font-weight: 700;
+    font-size: 16px;
+    transition: opacity 0.25s ease;
 }
 
 .nav-links a:hover {
-    color: #e0e0e0;
+    opacity: 0.85;
 }
 
-/* Feature cards */
-.feature-card {
-    background-color: #f8f8f8;
-    border-radius: 16px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 250px;
-}
-
-.feature-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 25px rgba(123, 47, 247, 0.2);
-}
-
-.feature-card i {
-    color: #7b2ff7;
-    margin-bottom: 10px;
-}
-
-.feature-card h2 {
-    font-size: 20px;
-    margin: 10px 0 5px;
-}
-
-.feature-card p {
-    font-size: 14px;
-    color: #666;
-}
-
-.footer {
-    background-color: #ccc1c1;
-    text-align: center;
-    padding: 0px 0 0 0;
-    font-size: 12px;
-    color: rgb(11, 11, 11);
-    width: 100%;
-}
-
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .nav-links {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .feature-card {
-        margin-bottom: 20px;
-    }
-}
-
-/* Toggle Button */
+/* DARK MODE TOGGLE */
 .mode-toggle {
-    background: transparent;
+    background: none;
     border: none;
-    color: white;
-    font-size: 22px;
     cursor: pointer;
-    margin-left: 20px;
-    transition: color 0.3s;
+    color: #ffffff;
+    font-size: 22px;
+    margin-right: 10px;
 }
 
-.mode-toggle:hover {
-    color: #e0e0e0;
+/* PROFILE ICON */
+.profile-link {
+    position: relative;
+    margin-left: 8px;
+    text-decoration: none;
+    margin-right: 30px;
 }
 
-/* Dark Mode Styles */
-.dark-mode {
-    background-color: #121212;
-    color: #e0e0e0;
+.profile-link img {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ffffff;
+    transition: transform 0.25s ease;
 }
 
-.dark-mode nav {
-    background-color: #1e1e1e;
+.profile-link i {
+    font-size: 34px;
+    color: #ffffff;
 }
 
-.dark-mode .feature-card {
-    background-color: #1f1f1f;
-    color: #e0e0e0;
+.profile-link:hover img {
+    transform: scale(1.05);
 }
 
-.dark-mode .feature-card p {
-    color: #ccc;
+/* TOOLTIP */
+.profile-link span {
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    top: 48px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #000;
+    padding: 6px 12px;
+    color: #ffffff;
+    border-radius: 8px;
+    font-size: 13px;
+    transition: 0.25s ease;
+    white-space: nowrap;
 }
 
-.dark-mode a {
-    color: #90caf9;
+.profile-link:hover span {
+    visibility: visible;
+    opacity: 1;
 }
 
-.dark-mode .footer {
-    background-color: #1e1e1e;
-    color: #aaa;
-}
-
-/* Sidebar */
+/* =========================
+   SIDEBAR
+========================= */
 .sidebar {
     position: fixed;
     top: 0;
-    left: -250px;
-    width: 200px;
-    height: calc(100vh - 25px);
-    background-color: #8d61d4;
-    color: white;
-    padding: 20px;
-    transition: left 0.3s ease;
-    z-index: 999;
-    overflow-y: auto;
+    left: -260px;
+    width: 240px;
+    height: 100vh;
+    background: linear-gradient(180deg, var(--accent), var(--primary-dark));
+    padding: 22px;
+    color: #ffffff;
+    transition: left 0.3s ease-in-out;
+    z-index: 9999;
+    box-shadow: 3px 0 14px rgba(0, 0, 0, 0.3);
 }
 
 .sidebar.active {
@@ -191,99 +174,267 @@ nav {
 }
 
 .sidebar ul {
+    margin-top: 70px;
     list-style: none;
-    /* padding: 0; */
-    margin-top: 50px;
 }
 
-.sidebar ul li {
-    margin-top: 30px;
-    margin-bottom: 20px;
+.sidebar li {
+    margin-bottom: 24px;
 }
 
-.sidebar ul li a {
-    color: white;
+.sidebar a {
+    color: #ffffff;
     text-decoration: none;
-    font-weight: 500;
+    font-size: 16px;
+    font-weight: 700;
+    transition: all 0.25s ease;
 }
 
-.menu_icon {
-    left: 20px;
-    z-index: 1001;
-    padding: 10px;
-    border-radius: 8px;
+.sidebar a:hover {
+    opacity: 0.85;
+    padding-left: 6px;
 }
 
-.menu_icon i {
-    font-size: 24px;
-    color: white;
-    cursor: pointer;
-}
-
-/* LED banner - light mode */
+/* =========================
+   LED BANNER
+========================= */
 .led-banner {
     width: 100%;
-    /* background-color: plum; */
-    background-color: rgb(150, 135, 135);
-    overflow: hidden;
     height: 40px;
-    position: relative;
+    background: #111827;
+    overflow: hidden;
 }
 
 .led-text {
-    position: absolute;
     white-space: nowrap;
-    color: #000;
-    font-weight: 600;
-    font-size: 25px;
+    color: #60a5fa;
+    font-size: 18px;
+    font-weight: 800;
     line-height: 40px;
-    font-family: 'Courier New', monospace;
-    animation: scroll-left-right 12s linear infinite;
+    animation: scroll 20s linear infinite;
 }
 
-/* LED banner - dark mode */
-.dark-mode .led-banner {
-    background-color: #222;
-
-}
-
-.dark-mode .led-text {
-    color: rgba(124, 148, 226, 0.973);
-}
-
-/* LED animation */
-@keyframes scroll-left-right {
-    0% {
-        right: -100%;
+@keyframes scroll {
+    from {
+        transform: translateX(110%);
     }
 
-    100% {
-        right: 100%;
+    to {
+        transform: translateX(-120%);
     }
 }
 
-.led-text {
-    position: absolute;
-    white-space: nowrap;
-    color: white;
-    font-weight: 600;
-    font-size: 25px;
-    line-height: 40px;
-    font-family: 'Courier New', monospace;
-    animation: scroll-left-right 12s linear infinite;
+/* =========================
+   FEATURE CARDS
+========================= */
+.feature-card {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    color: inherit;
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    display: block;
 }
 
+.feature-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-strong);
+}
 
-/* Dark Mode Sidebar */
+.feature-card i {
+    font-size: 58px;
+    color: var(--accent);
+}
+
+.feature-card h2 {
+    font-size: 22px;
+    margin-top: 12px;
+    font-weight: 800;
+}
+
+/* =========================
+   FOOTER
+========================= */
+.footer {
+    background: #111827;
+    color: #cbd5f5;
+    text-align: center;
+    padding: 12px;
+    font-size: 14px;
+}
+
+/* =========================
+   DARK MODE
+========================= */
+.dark-mode {
+    background: #111827 !important;
+    color: #e5e7eb !important;
+}
+
+/* Navbar dark */
+.dark-mode .navbar {
+    background: #111827 !important;
+}
+
+/* Sidebar dark */
 .dark-mode .sidebar {
-    background-color: #1e1e1e;
-    color: #e0e0e0;
+    background: #111827;
 }
 
-.dark-mode .sidebar ul li a {
-    color: #e0e0e0;
+/* Cards dark */
+.dark-mode .feature-card {
+    background: #111827;
+    color: #ffffff;
 }
 
-.dark-mode .sidebar ul li a:hover {
-    color: #90caf9;
+/* Footer dark */
+.dark-mode .footer {
+    background: #020617;
+}
+
+
+
+
+/* =========================
+   RESPONSIVE DESIGN
+========================= */
+
+/* ---------- Tablets (≤ 992px) ---------- */
+@media (max-width: 992px) {
+
+    .navbar {
+        padding: 12px 18px;
+        gap: 12px;
+    }
+
+    .logo .h1logo {
+        font-size: 22px;
+    }
+
+    .nav-links {
+        gap: 16px;
+    }
+
+    .nav-links a {
+        font-size: 14px;
+    }
+
+    .feature-card i {
+        font-size: 48px;
+    }
+
+    .feature-card h2 {
+        font-size: 20px;
+    }
+}
+
+/* ---------- Mobiles (≤ 768px) ---------- */
+@media (max-width: 768px) {
+
+    /* NAVBAR */
+    .navbar {
+        flex-wrap: wrap;
+    }
+
+    .nav-links {
+        display: none;
+        /* hide top links on mobile */
+    }
+
+    .menu_icon i {
+        font-size: 26px;
+        margin-left: 0;
+    }
+
+    .logo {
+        flex: 1;
+        text-align: center;
+    }
+
+    .logo .h1logo {
+        font-size: 20px;
+    }
+
+    .profile-link span {
+        display: none;
+        /* hide tooltip on mobile */
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+        width: 220px;
+    }
+
+    /* LED TEXT */
+    .led-text {
+        font-size: 16px;
+    }
+
+    /* CARDS */
+    .container {
+        margin-top: 30px !important;
+    }
+
+    .feature-card {
+        padding: 24px !important;
+    }
+
+    .feature-card i {
+        font-size: 46px;
+    }
+
+    .feature-card h2 {
+        font-size: 18px;
+    }
+
+    .feature-card p {
+        font-size: 14px;
+    }
+}
+
+/* =========================
+   FORCE SAME CARD HEIGHT (MOBILE)
+========================= */
+@media (max-width: 768px) {
+
+    /* Make column stretch full height */
+    .row>div {
+        display: flex;
+    }
+
+    /* Make card fill column */
+    .feature-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+    }
+
+    /* Equal spacing inside card */
+    .feature-card h2 {
+        min-height: 44px;
+        /* title equal */
+    }
+
+    .feature-card p {
+        min-height: 60px;
+        /* description equal */
+    }
+}
+
+/* Extra safety for very small phones */
+@media (max-width: 480px) {
+
+    .feature-card h2 {
+        min-height: 40px;
+        font-size: 17px;
+    }
+
+    .feature-card p {
+        min-height: 56px;
+        font-size: 14px;
+    }
 }

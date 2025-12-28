@@ -3,23 +3,41 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>MessTrack - Leave Application View</title>
+    <title>Leave Application - HostelHub</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='adminleaveapplications.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
 </head>
 
 <body>
-    <a href="{{ url_for('adminindex') }}" class="back-button">Back</a>
+    <nav>
+        <button onclick="history.back()" style="
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #5662d1;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            z-index: 1000;
+        ">
+            Back
+        </button>
+
+    </nav>
     <div class="form-container">
-        <h2>Leave Application MessTrack</h2>
+        <h2>Leave Application HostelHub</h2>
 
         <p>Date: {{ leave_application.date or 'N/A' }}</p>
 
         <p>
             I, {{ leave_application.student_name }}, studying in year {{ leave_application.student_class }},
-            branch {{ leave_application.room_no }}, want to leave MessTrack for {{ leave_application.no_of_days }} days,
+            branch {{ leave_application.room_no }}, want to leave Hostel for {{ leave_application.no_of_days }} days,
             from {{ leave_application.from_date }} to {{ leave_application.to_date }}, as I am going out of
             station/native place.
-            I will report back to the MessTrack on {{ leave_application.return_date }}.
+            I will report back to the Hostel on {{ leave_application.return_date }}.
         </p>
 
         <p>Kindly grant me the leave.</p>

@@ -1,62 +1,203 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
+/* =========================
+   GLOBAL THEME VARIABLES
+========================= */
+:root {
+    --primary: #6d28d9;
+    --primary-dark: #4c1d95;
+    --secondary: #2563eb;
+    --bg-main: linear-gradient(135deg, #eef2ff, #dbe1ff);
+    --bg-card: #ffffff;
+    --text-dark: #111827;
+    --text-muted: #475569;
+    --border-light: #cbd5e1;
+    --radius-lg: 28px;
+    --radius-md: 14px;
+    --shadow-soft: 0 12px 35px rgba(0, 0, 0, 0.15);
+    --shadow-strong: 0 18px 55px rgba(0, 0, 0, 0.22);
+}
+
+/* =========================
+   RESET
+========================= */
+* {
     margin: 0;
     padding: 0;
-    position: relative;
+    box-sizing: border-box;
+    font-family: "Segoe UI", system-ui, sans-serif;
 }
 
+/* =========================
+   BODY
+========================= */
+body {
+    background: var(--bg-main);
+    padding-top: 120px;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 16px 46px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 24px;
+    font-weight: 800;
+    box-shadow: var(--shadow-soft);
+    z-index: 1000;
+}
+
+.nav-title {
+    color: #fff;
+}
+
+.nav-back {
+    background: #ffffff;
+    color: #2563eb;
+
+    padding: 10px 22px;
+    /* SAME SIZE everywhere */
+    border-radius: 999px;
+    /* pill shape */
+
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 800;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    transition: 0.25s ease;
+}
+
+
+
+
+/* =========================
+   MAIN CONTAINER
+========================= */
 .container {
     margin: 40px auto;
-    padding: 20px;
-    max-width: 1000px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 36px;
+    width: 92%;
+    max-width: 1200px;
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-strong);
 }
 
+/* =========================
+   HEADING
+========================= */
 h1 {
     text-align: center;
-    color: #333;
+    margin-bottom: 30px;
+    font-size: 30px;
+    font-weight: 900;
+    color: var(--text-dark);
 }
 
+/* =========================
+   TABLE
+========================= */
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    border-radius: var(--radius-md);
+    overflow: hidden;
 }
 
 thead {
-    background-color: #8d61d4;
-    color: white;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    color: #fff;
 }
 
 th,
 td {
-    padding: 12px;
+    padding: 16px 20px;
+    font-size: 15px;
     text-align: left;
-    border-bottom: 1px solid #ccc;
+}
+
+th {
+    font-weight: 800;
+}
+
+tbody tr {
+    border-bottom: 1px solid var(--border-light);
+    transition: background 0.25s ease;
+}
+
+tbody tr:nth-child(even) {
+    background: #f8faff;
 }
 
 tbody tr:hover {
-    background-color: #f1f1f1;
+    background: #eef2ff;
 }
 
-.back-button {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    text-decoration: none;
-    background-color: #7b2ff7;
-    color: white;
-    padding: 10px 16px;
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: bold;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease;
-}
+/* =========================
+   RESPONSIVE TABLE
+========================= */
+@media (max-width: 768px) {
 
-.back-button:hover {
-    background-color: #0056b3;
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+        display: block;
+    }
+
+    thead {
+        display: none;
+    }
+
+    tr {
+        margin-bottom: 18px;
+        background: #fff;
+        border-radius: var(--radius-md);
+        padding: 18px;
+        box-shadow: var(--shadow-soft);
+    }
+
+    td {
+        border: none;
+        padding-left: 52%;
+        margin-bottom: 14px;
+        position: relative;
+        font-size: 14px;
+    }
+
+    td:before {
+        position: absolute;
+        left: 16px;
+        font-weight: 800;
+        color: var(--text-dark);
+    }
+
+    td:nth-of-type(1):before {
+        content: "Name";
+    }
+
+    td:nth-of-type(2):before {
+        content: "Email";
+    }
+
+    td:nth-of-type(3):before {
+        content: "Feedback";
+    }
+
+    td:nth-of-type(4):before {
+        content: "Suggestion";
+    }
 }

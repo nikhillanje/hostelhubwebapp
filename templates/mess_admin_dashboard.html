@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Mess Attendance Summary</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='mess_admin.css') }}">
+</head>
+
+<body>
+
+    <!-- Top Header -->
+    <div class="topbar">
+        <h2>Mess Attendance</h2>
+        <a href="javascript:history.back()" class="back-btn">Back</a>
+    </div>
+
+    <!-- Dashboard Card -->
+    <div class="wrapper">
+        <div class="dashboard-card">
+
+            <h3>Mess Attendance Summary</h3>
+            <p class="date">For Date: {{ date }}</p>
+
+            <div class="cards">
+
+                <div class="stat total">
+                    <span>Total Students</span>
+                    <h1>{{ total_students }}</h1>
+                </div>
+
+                <div class="stat present">
+                    <span>Total Present</span>
+                    <h1>{{ total_present }}</h1>
+                </div>
+
+                <div class="stat absent">
+                    <span>Total Absent</span>
+                    <h1>{{ total_absent }}</h1>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>

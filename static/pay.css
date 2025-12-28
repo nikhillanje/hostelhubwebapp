@@ -1,3 +1,6 @@
+/* =========================
+   RESET
+========================= */
 * {
     margin: 0;
     padding: 0;
@@ -5,6 +8,9 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* =========================
+   BODY
+========================= */
 body {
     background: linear-gradient(135deg, #ae91db, #ab9c9c);
     display: flex;
@@ -14,18 +20,21 @@ body {
     padding: 20px;
 }
 
+/* =========================
+   CONTAINER
+========================= */
 .container {
     background-color: #e8e0e0;
     padding: 40px;
     border-radius: 16px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
     max-width: 600px;
     width: 100%;
     text-align: center;
 }
 
 .container h2 {
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     font-size: 28px;
     color: #333;
 }
@@ -36,37 +45,98 @@ body {
     color: #444;
 }
 
+/* =========================
+   BUTTON
+========================= */
 button {
-    padding: 12px 25px;
+    padding: 14px 28px;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     background-color: #7b2ff7;
     color: white;
     font-weight: bold;
     font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 button:hover {
     background-color: #5e20c6;
+    transform: translateY(-1px);
 }
 
-/* Back Button */
+/* =========================
+   BACK BUTTON
+========================= */
 .back-button {
-    position: absolute;
+    position: fixed;
     top: 20px;
-    right: 30px;
+    right: 24px;
     font-size: 14px;
     background-color: #6c757d;
     color: #ffffff;
-    padding: 8px 14px;
+    padding: 8px 16px;
     text-decoration: none;
-    border-radius: 8px;
+    border-radius: 999px;
     transition: background-color 0.3s ease;
-    border: none;
+    z-index: 1000;
 }
 
 .back-button:hover {
     background-color: #5a6268;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+/* Tablets */
+@media (max-width: 900px) {
+    .container {
+        padding: 30px 24px;
+    }
+
+    .container h2 {
+        font-size: 24px;
+    }
+
+    .container p {
+        font-size: 18px;
+    }
+}
+
+/* Mobile Phones */
+@media (max-width: 480px) {
+
+    body {
+        padding: 16px;
+    }
+
+    .container {
+        padding: 24px 18px;
+        border-radius: 14px;
+    }
+
+    .container h2 {
+        font-size: 20px;
+        line-height: 1.4;
+    }
+
+    .container p {
+        font-size: 16px;
+        margin-bottom: 22px;
+    }
+
+    button {
+        width: 100%;
+        font-size: 15px;
+        padding: 12px;
+    }
+
+    .back-button {
+        top: 14px;
+        right: 14px;
+        font-size: 13px;
+        padding: 6px 14px;
+    }
 }

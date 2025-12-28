@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HostelHub Admin Login</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='adminlogin.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="brand-navbar">
+            🏢 <span>HostelHub Admin</span>
+        </div>
+        <a href="{{ url_for('home') }}" class="back-button" title="Go back">Back</a>
+    </nav>
+
+    <!-- MAIN CARD -->
+    <div class="container">
+
+        <!-- LEFT SIDE: FORM -->
+        <div class="left">
+
+            <div class="page-title">
+                <span class="logo"></span>
+                <h2>WELCOME TO <span>HOSTELHUB ADMIN</span></h2>
+                <br>
+            </div>
+
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                <div class="flash-message {{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}
+
+            <!-- Login Form -->
+            <form method="POST" action="/xHostelLogin" autocomplete="off">
+                {{ csrf_token() if csrf_token is defined }}
+
+                <label for="email">Email</label>
+                <input type="text" id="email" name="email" placeholder="Enter Email" autocomplete="off"
+                    autocapitalize="none" spellcheck="false" required>
+
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter Password"
+                    autocomplete="new-password" required>
+
+                <label for="captcha-input">Captcha</label>
+                <div class="captcha-group">
+                    <span class="captcha-text">{{ captcha }}</span>
+                    <button type="button" class="refresh-captcha" title="Refresh Captcha" onclick="location.reload();">
+                        &#x21bb;
+                    </button>
+                </div>
+
+                <input type="text" id="captcha-input" name="captcha" placeholder="Enter Captcha" autocomplete="off"
+                    required>
+
+                <div class="options">
+                    <label><input type="checkbox" checked> Remember me</label>
+                    <a href="#">Forgot Password?</a>
+                </div>
+
+                <button type="submit">Login</button>
+            </form>
+        </div>
+
+        <!-- RIGHT SIDE: IMAGE -->
+        <div class="right">
+            <img src="{{ url_for('static', filename='xadminlogo.jpg') }}" alt="Admin Illustration">
+        </div>
+
+    </div>
+
+</body>
+
+</html>

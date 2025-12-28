@@ -4,16 +4,26 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin MessTrack Set Bill</title>
+    <title>Set Mess Bill - HostelHub</title>
+
     <link rel="stylesheet" href="{{ url_for('static', filename='adminsetbill.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
 </head>
 
 <body>
-    <a href="{{ url_for('adminindex') }}" class="back-button">Back</a>
 
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="navbar-title">🧾 Set Monthly Mess Bill</div>
+        <a href="#" onclick="history.back()" class="nav-back">Back</a>
+    </nav>
+
+    <!-- MAIN CONTENT -->
     <div class="container">
+
         <h2>Set Monthly Bill for {{ current_month }}</h2>
 
+        <!-- Flash Messages -->
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
         {% for category, message in messages %}
@@ -25,9 +35,11 @@
         <form method="post">
             <label for="amount">Bill Amount (₹):</label>
             <input type="number" id="amount" name="amount" min="0" value="{{ current_amount }}" required />
-            <button type="submit">Set Bill</button>
+
+            <button type="submit">Save Bill</button>
         </form>
     </div>
+
 </body>
 
 </html>

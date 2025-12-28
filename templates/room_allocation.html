@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Room Allocation</title>
+
+    <style>
+        /* ==================================================
+   THEME VARIABLES
+================================================== */
+        :root {
+            --primary: #2563eb;
+            --secondary: #3b82f6;
+            --bg-main: linear-gradient(135deg, #eef2ff, #dbe7ff);
+            --bg-card: #ffffff;
+
+            --text-dark: #0f172a;
+            --text-muted: #475569;
+
+            --border-light: #d1d5db;
+
+            --radius-lg: 18px;
+            --radius-md: 12px;
+
+            --shadow-soft: 0 6px 18px rgba(0, 0, 0, 0.18);
+            --shadow-strong: 0 14px 38px rgba(0, 0, 0, 0.25);
+        }
+
+        /* ==================================================
+   RESET
+================================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", system-ui, sans-serif;
+        }
+
+        /* ==================================================
+   PAGE BACKGROUND
+================================================== */
+        body {
+            background: var(--bg-main);
+            padding-top: 100px;
+            min-height: 100vh;
+            color: var(--text-dark);
+        }
+
+        /* ==================================================
+   NAVBAR
+================================================== */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            padding: 14px 40px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            box-shadow: var(--shadow-soft);
+            z-index: 999;
+        }
+
+        /* Navbar title */
+        nav h2 {
+            margin: 0;
+            color: #ffffff;
+            font-size: 26px;
+            font-weight: 900;
+            text-align: center;
+            flex: 1;
+        }
+
+        /* Keep button on right */
+        nav button {
+            background: #ffffff;
+            /* white background */
+            color: var(--primary);
+            /* blue text */
+            padding: 10px 22px;
+            border-radius: 999px;
+            border: none;
+
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+        }
+
+
+        /* ==================================================
+   PAGE TITLE
+================================================== */
+        h2 {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 26px;
+            color: var(--text-dark);
+        }
+
+        /* ==================================================
+   VIEW ROOMS BUTTON
+================================================== */
+        a[href*="rooms_overview"] {
+            display: inline-block;
+            padding: 10px 22px;
+
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: #ffffff;
+
+            border-radius: var(--radius-md);
+            font-weight: 800;
+            text-decoration: none;
+
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+        }
+
+        /* ==================================================
+   FILTER SECTION
+================================================== */
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 22px;
+            flex-wrap: wrap;
+        }
+
+        .filters select {
+            padding: 10px 14px;
+            font-size: 15px;
+
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-light);
+
+            background: #f8faff;
+        }
+
+        /* ==================================================
+   TABLE
+================================================== */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+
+            box-shadow: var(--shadow-strong);
+        }
+
+        thead {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: #ffffff;
+        }
+
+        th {
+            padding: 14px;
+            font-size: 16px;
+            font-weight: 800;
+            text-align: center;
+        }
+
+        td {
+            padding: 14px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-light);
+            font-size: 15px;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #f6f7ff;
+        }
+
+        tbody tr:hover {
+            background: #eef2ff;
+        }
+
+        /* ==================================================
+   INPUT
+================================================== */
+        input[type="text"] {
+            padding: 9px;
+            width: 120px;
+
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-light);
+
+            background: #f8faff;
+        }
+
+        /* ==================================================
+   BUTTONS
+================================================== */
+        button {
+            padding: 8px 16px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: #ffffff;
+
+            border: none;
+            border-radius: var(--radius-md);
+
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-change {
+            background: #7c3aed;
+        }
+
+        /* ==================================================
+   BADGE
+================================================== */
+        .badge {
+            display: inline-block;
+            padding: 6px 14px;
+
+            background: #ede9fe;
+            color: #5b21b6;
+
+            border-radius: 999px;
+            font-weight: 800;
+        }
+
+        /* ==================================================
+   RESPONSIVE
+================================================== */
+        @media (max-width: 768px) {
+
+            table,
+            thead,
+            tbody,
+            th,
+            td,
+            tr {
+                display: block;
+            }
+
+            thead {
+                display: none;
+            }
+
+            tr {
+                margin-bottom: 16px;
+                background: #ffffff;
+                border-radius: 14px;
+                padding: 14px;
+                box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+            }
+
+            td {
+                border: none;
+                padding-left: 50%;
+                margin-bottom: 10px;
+                position: relative;
+                font-size: 15px;
+            }
+
+            td::before {
+                position: absolute;
+                left: 14px;
+                font-weight: 700;
+                color: var(--text-dark);
+            }
+
+            td:nth-of-type(1)::before {
+                content: "Name";
+            }
+
+            td:nth-of-type(2)::before {
+                content: "Branch";
+            }
+
+            td:nth-of-type(3)::before {
+                content: "Year";
+            }
+
+            td:nth-of-type(4)::before {
+                content: "Room";
+            }
+
+            td:nth-of-type(5)::before {
+                content: "Action";
+            }
+        }
+    </style>
+
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+</head>
+
+<body>
+
+    <nav>
+
+        <h2>Room Allocation</h2>
+        <button onclick="history.back()">
+            Back
+        </button>
+    </nav>
+
+
+
+    <!-- BUTTON FOR ROOMS OVERVIEW -->
+    <div style="text-align: right; margin-bottom: 20px;">
+        <a href="{{ url_for('rooms_overview') }}" style="
+            padding:10px 20px;
+            background:#6a0dad;
+            color:white;
+            border:none;
+            border-radius:8px;
+            cursor:pointer;
+            font-weight:bold;
+            text-decoration:none;">
+            View Rooms
+        </a>
+    </div>
+
+    <!-- FILTER BOX -->
+    <div class="filters">
+        <!-- Branch Filter -->
+        <select id="branchFilter" onchange="applyFilters()">
+            <option value="">All Branches</option>
+            <option value="CSE">CSE</option>
+            <option value="IT">IT</option>
+            <option value="ECE">ECE</option>
+            <option value="CIVIL">CIVIL</option>
+            <option value="MECH">MECH</option>
+        </select>
+
+        <!-- Year Filter -->
+        <select id="yearFilter" onchange="applyFilters()">
+            <option value="">All Years</option>
+            <option value="1">1st Year</option>
+            <option value="2">2nd Year</option>
+            <option value="3">3rd Year</option>
+            <option value="4">4th Year</option>
+        </select>
+
+        <!-- Room Filter -->
+        <select id="roomFilter" onchange="applyFilters()">
+            <option value="">All Rooms</option>
+            <option value="G">Only G Rooms</option>
+            <option value="F">Only F Rooms</option>
+
+            <option value="G1">G-01 to G-100</option>
+            <option value="G2">G-101 to G-200</option>
+            <option value="G3">G-201 to G-300</option>
+
+            <option value="F1">F-01 to F-100</option>
+            <option value="F2">F-101 to F-200</option>
+        </select>
+    </div>
+
+    <table cellpadding="8">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Branch</th>
+                <th>Year</th>
+                <th>Room</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody id="userTable">
+            {% for u in users %}
+            <tr data-branch="{{ u.academic_branch }}" data-year="{{ u.academic_year }}"
+                data-room="{{ u.allocated_room.room_no if u.allocated_room else '' }}">
+
+                <td>{{ u.name }}</td>
+                <td>{{ u.academic_branch }}</td>
+                <td>{{ u.academic_year }}</td>
+
+                <td id="roomDisplay_{{ u._id }}">
+                    {% if u.allocated_room %}
+                    <span class="badge">{{ u.allocated_room.room_no }}</span>
+                    {% else %}
+                    <input type="text" id="room_{{ u._id }}" placeholder="e.g., F-01">
+                    {% endif %}
+                </td>
+
+                <td id="actionDisplay_{{ u._id }}">
+                    {% if u.allocated_room %}
+                    <button class="btn-change"
+                        onclick="showEdit('{{ u._id }}', '{{ u.allocated_room.room_no }}')">Change Room</button>
+                    {% else %}
+                    <button onclick="allocateRoom('{{ u._id }}')">Save</button>
+                    {% endif %}
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+    <script>
+        function applyFilters() {
+            let branch = document.getElementById("branchFilter").value;
+            let year = document.getElementById("yearFilter").value;
+            let roomFilter = document.getElementById("roomFilter").value;
+
+            let rows = document.querySelectorAll("#userTable tr");
+
+            rows.forEach(row => {
+                let b = row.getAttribute("data-branch");
+                let y = row.getAttribute("data-year");
+                let roomNo = row.getAttribute("data-room");
+
+                let show = true;
+
+                // Filter by branch
+                if (branch && b !== branch) show = false;
+
+                // Filter by year
+                if (year && y !== year) show = false;
+
+                // Filter by room
+                if (roomFilter) {
+                    if (!roomNo) show = false;
+                    else {
+                        let [floor, num] = roomNo.split("-");
+                        num = parseInt(num);
+
+                        if (roomFilter === "G" && floor !== "G") show = false;
+                        if (roomFilter === "F" && floor !== "F") show = false;
+
+                        if (roomFilter === "G1" && !(floor === "G" && num >= 1 && num <= 100)) show = false;
+                        if (roomFilter === "G2" && !(floor === "G" && num >= 101 && num <= 200)) show = false;
+                        if (roomFilter === "G3" && !(floor === "G" && num >= 201 && num <= 300)) show = false;
+
+                        if (roomFilter === "F1" && !(floor === "F" && num >= 1 && num <= 100)) show = false;
+                        if (roomFilter === "F2" && !(floor === "F" && num >= 101 && num <= 200)) show = false;
+                    }
+                }
+
+                row.style.display = show ? "" : "none";
+            });
+        }
+
+        function showEdit(user_id, current_room) {
+            document.getElementById("roomDisplay_" + user_id).innerHTML =
+                `<input type='text' id='room_${user_id}' value='${current_room}' placeholder='Enter new room'>`;
+
+            document.getElementById("actionDisplay_" + user_id).innerHTML =
+                `<button onclick="allocateRoom('${user_id}')">Update</button>`;
+        }
+
+        function allocateRoom(user_id) {
+            const room_no = document.getElementById("room_" + user_id).value;
+
+            if (room_no.trim() === "") {
+                alert("Enter room number!");
+                return;
+            }
+
+            fetch("/allocate-room-new", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: `user_id=${user_id}&room_no=${room_no}`
+            })
+                .then(res => res.json())
+                .then(data => {
+                    alert(data.message);
+                    location.reload();
+                })
+                .catch(err => alert("Error allocating room"));
+        }
+    </script>
+
+</body>
+
+</html>

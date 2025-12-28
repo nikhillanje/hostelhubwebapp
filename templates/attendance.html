@@ -3,26 +3,43 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Attendance</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='attendance.css') }}">
+    <title>Attendance | HostelHub</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='studentattendance.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
 </head>
 
 <body>
-    <div class="attendance-container">
-        <h2>Mark Your Attendance</h2>
-        <form id="attendance-form">
-            <label for="date">Date:</label>
-            <input type="date" id="date" name="date" disabled>
-            <input type="hidden" id="username" name="username" value="{{ session.username }}">
-            <button type="submit">Submit Attendance</button>
-        </form>
 
-        <button id="back-button" onclick="window.location.href='/index'">Back</button>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="brand">🏢 HostelHub Attendance</div>
+        <a href="{{ url_for('index') }}" class="nav-back">Back</a>
+    </nav>
 
-        <div id="message"></div>
+    <!-- MAIN CONTENT -->
+    <div class="attendance-wrapper">
+        <div class="left-card">
+            <h2>Mark Your Attendance</h2>
+
+            <form id="attendance-form">
+                <label for="date">Date</label>
+                <input type="date" id="date" name="date" disabled>
+
+                <input type="hidden" id="username" name="username" value="{{ session.username }}">
+
+                <button type="submit">Submit Attendance</button>
+            </form>
+
+            <div id="message"></div>
+        </div>
+
+        <div class="right-image">
+            <img src="{{ url_for('static', filename='attendance_img.png') }}" alt="attendance">
+        </div>
     </div>
 
     <script src="{{ url_for('static', filename='attendance.js') }}"></script>
+
 </body>
 
 </html>

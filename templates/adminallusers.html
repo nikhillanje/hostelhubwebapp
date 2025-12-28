@@ -4,56 +4,110 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>All User MessTrack</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='adminallusers.css') }}" />
+    <title>All Students - HostelHub</title>
+
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='adminallusers.css') }}">
 </head>
 
 <body>
-    <nav>
-        <a href="{{ url_for('adminindex') }}">
-            <button id="back-button">Back</button>
-        </a>
-    </nav>
 
-    <div class="container">
-        <h1>MessTrack All Users</h1>
-        <table id="userTable">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Address</th>
-                    <th>Mobile No</th>
-                    <th>Email</th>
-                    <th>Academic Branch</th>
-                    <th>Academic Year</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for user in users %}
-                <tr>
-                    <td>{{ user.name }}</td>
-                    <td>{{ user.address }}</td>
-                    <td>{{ user.mobile_no }}</td>
-                    <td>{{ user.email }}</td>
-                    <td>{{ user.academic_branch }}</td>
-                    <td>{{ user.academic_year }}</td>
-                    <td>
-                        <button class="delete-btn" onclick="deleteUser('{{ user._id }}')">Delete</button>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <!-- Header -->
+    <div class="top-bar">
+        <span>HostelHub - All Students</span>
+        <a href="javascript:history.back()" class="back-btn">Back</a>
     </div>
 
-    <div class="button-group">
-        <button class="download-btn" onclick="downloadPDF()">Download as PDF</button>
+    <!-- Content -->
+    <div class="page-wrapper">
+        <div class="container">
+
+            <h1>All Students</h1>
+
+            <!-- Filters -->
+            <div class="filters">
+                <select id="branchFilter" onchange="filterTable()">
+                    <option value="">All Branches</option>
+                    <option value="CSE">CSE</option>
+                    <option value="IT">IT</option>
+                    <option value="ECE">ECE</option>
+                    <option value="MECH">MECH</option>
+                    <option value="CIVIL">CIVIL</option>
+                </select>
+
+                <select id="yearFilter" onchange="filterTable()">
+                    <option value="">All Years</option>
+                    <option value="1">1st Year</option>
+                    <option value="2">2nd Year</option>
+                    <option value="3">3rd Year</option>
+                    <option value="4">4th Year</option>
+                </select>
+            </div>
+
+            <!-- Table -->
+            <div class="table-wrapper">
+                <table id="userTable">
+                    <thead>
+                        <tr>
+                            <th>Sr</th>
+                            <th>Name</th>
+                            <th>Username</th>
+                            <th>Address</th>
+                            <th>Mobile</th>
+                            <th>Email</th>
+                            <th>Branch</th>
+                            <th>Year</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.address }}</td>
+                            <td>{{ user.mobile_no }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.academic_branch }}</td>
+                            <td>{{ user.academic_year }}</td>
+                            <td>
+                                <button class="delete-btn" onclick="deleteUser('{{ user._id }}')">Delete</button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="button-group">
+                <button class="download-btn" onclick="downloadPDF()">Download as PDF</button>
+            </div>
+
+        </div>
     </div>
+
+    <script>
+        function filterTable() {
+            const branch = document.getElementById("branchFilter").value.toLowerCase();
+            const year = document.getElementById("yearFilter").value.toLowerCase();
+
+            document.querySelectorAll("#userTable tbody tr").forEach(row => {
+                const branchCell = row.children[6].innerText.toLowerCase();
+                const yearCell = row.children[7].innerText.toLowerCase();
+
+                row.style.display =
+                    (branch === "" || branchCell === branch) &&
+                        (year === "" || yearCell === year)
+                        ? "" : "none";
+            });
+        }
+    </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
     <script src="{{ url_for('static', filename='adminallusers.js') }}"></script>
+
 </body>
 
 </html>

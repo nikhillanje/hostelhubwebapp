@@ -4,46 +4,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Approval - HostelHub</title>
+
     <link rel="stylesheet" href="{{ url_for('static', filename='adminapproval.css') }}">
-    <title>Admin Approval</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
 </head>
 
 <body>
-    <h1>Approvals</h1>
 
-    {% set user_list = users | list %}
-    {% if user_list %}
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for user in user_list %}
-            <tr>
-                <td>{{ user.name }}</td>
-                <td>{{ user.username }}</td>
-                <td>{{ user.email }}</td>
-                <td>
-                    <form method="POST">
-                        <input type="hidden" name="user_id" value="{{ user._id }}">
-                        <button type="submit" name="action" value="approve">Approve</button>
-                        <button type="submit" name="action" value="decline">Decline</button>
-                    </form>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    {% else %}
-    <p>No pending user approval requests.</p>
-    {% endif %}
-    <a href="{{ url_for('adminindex') }}" class="back-button">Back</a>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-title">User Approvals</div>
+        <a href="{{ url_for('xHostelIndex') }}" class="nav-back">Back</a>
+    </nav>
+
+    <div class="page-wrapper">
+        <h1>Pending Approvals</h1>
+
+        {% set user_list = users | list %}
+        {% if user_list %}
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for user in user_list %}
+                    <tr>
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>
+                            <form method="POST">
+                                <input type="hidden" name="user_id" value="{{ user._id }}">
+
+                                <button type="submit" name="action" value="approve" class="approve-btn">
+                                    Approve
+                                </button>
+
+                                <button type="submit" name="action" value="decline" class="decline-btn">
+                                    Decline
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% else %}
+        <p class="no-data">No pending approval requests.</p>
+        {% endif %}
+    </div>
 
 </body>
-
 </html>

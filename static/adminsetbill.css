@@ -1,134 +1,214 @@
-/* Reset & Base Styles */
+/* ==================================================
+   THEME VARIABLES (CONSISTENT WITH SAVED UI)
+================================================== */
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1e40af;
+  --secondary: #3b82f6;
+
+  --bg-main: linear-gradient(135deg, #eef2ff, #dbe7ff);
+  --bg-card: #ffffff;
+
+  --text-dark: #0f172a;
+  --text-muted: #475569;
+
+  --border-light: #cbd5e1;
+
+  --radius-lg: 22px;
+  --radius-md: 14px;
+
+  --shadow-soft: 0 8px 22px rgba(0, 0, 0, 0.18);
+  --shadow-strong: 0 18px 45px rgba(0, 0, 0, 0.25);
+}
+
+/* ==================================================
+   RESET
+================================================== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", system-ui, sans-serif;
 }
 
-/* Page Background */
+/* ==================================================
+   PAGE BACKGROUND
+================================================== */
 body {
-  background: linear-gradient(135deg, #ae91db, #ab9c9c);
+  background: var(--bg-main);
   min-height: 100vh;
-  padding: 40px 20px;
+  padding-top: 110px;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  overflow-y: auto;
 }
 
-/* Container Box */
-.container {
-  max-width: 420px;
-  width: 100%;
-  margin-top: 30px;
-  background: #ffffff;
-  padding: 30px 25px;
-  border-radius: 15px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-}
-
-/* Heading */
-h2 {
-  text-align: center;
-  font-size: 26px;
-  color: #34568B;
-  margin-bottom: 20px;
-}
-
-/* Label Styling */
-label {
-  display: block;
-  margin-top: 15px;
-  font-weight: 500;
-  color: #333;
-  text-align: left;
-}
-
-/* Input Field */
-input[type="number"] {
-  width: 100%;
-  padding: 12px;
-  font-size: 16px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  background-color: rgba(255, 255, 255, 0.95);
-  color: #333;
-  margin-top: 5px;
-  margin-bottom: 15px;
-  transition: border 0.3s ease, box-shadow 0.3s ease;
-}
-
-input[type="number"]:focus {
-  border-color: #7b2ff7;
-  box-shadow: 0 0 4px rgba(123, 47, 247, 0.5);
-  outline: none;
-}
-
-/* Button Styling */
-button {
-  margin-top: 20px;
-  width: 100%;
-  padding: 14px;
-  font-size: 17px;
-  font-weight: 600;
-  border-radius: 12px;
-  background-color: blueviolet;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  transition: background 0.3s ease, transform 0.2s ease;
-}
-
-button:hover {
-  background: linear-gradient(135deg, #6a1bd9, #e141b4);
-  transform: scale(1.03);
-}
-
-/* Flash Messages */
-.flash {
-  margin-bottom: 15px;
-  padding: 12px;
-  border-radius: 8px;
-  font-size: 15px;
-  font-weight: 500;
-  text-align: center;
-}
-
-.flash.success {
-  background-color: #d4edda;
-  color: #155724;
-}
-
-.flash.danger {
-  background-color: #f8d7da;
-  color: #721c24;
-}
-
-/* Responsive */
-@media (max-width: 500px) {
-  .container {
-    padding: 25px 20px;
-  }
-}
-
-.back-button {
+/* ==================================================
+   NAVBAR
+================================================== */
+.navbar {
   position: fixed;
-  top: 20px;
-  right: 20px;
-  padding: 10px 20px;
-  background-color: #6c757d;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 10px;
-  font-weight: 600;
-  font-size: 15px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  top: 0;
+  width: 100%;
+
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  padding: 14px 40px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 900;
+
+  box-shadow: var(--shadow-soft);
   z-index: 999;
 }
 
-.back-button:hover {
-  background-color: #5a6268;
+/* ==================================================
+   BACK BUTTON (PILL STYLE)
+================================================== */
+.nav-back {
+  text-decoration: none;
+  background: #ffffff;
+  color: var(--primary);
+
+  padding: 10px 24px;
+  border-radius: 999px;
+  font-size: 18px;
+  font-weight: 800;
+
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  transition: all 0.25s ease;
+}
+
+
+/* ==================================================
+   MAIN CARD CONTAINER
+================================================== */
+.container {
+  width: 92%;
+  max-width: 460px;
+
+  background: var(--bg-card);
+  padding: 38px 32px;
+
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-strong);
+
+  text-align: center;
+}
+
+/* ==================================================
+   HEADING
+================================================== */
+h2 {
+  font-size: 26px;
+  font-weight: 900;
+  margin-bottom: 24px;
+  color: var(--text-dark);
+}
+
+/* ==================================================
+   LABEL
+================================================== */
+label {
+  display: block;
+  text-align: left;
+
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-dark);
+
+  margin-bottom: 8px;
+}
+
+/* ==================================================
+   INPUT
+================================================== */
+input[type="number"] {
+  width: 100%;
+  padding: 15px;
+
+  font-size: 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+
+  background: #f8faff;
+  margin-bottom: 22px;
+
+  transition: all 0.25s ease;
+}
+
+input[type="number"]:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 10px rgba(37, 99, 235, 0.35);
+  outline: none;
+}
+
+/* ==================================================
+   BUTTON
+================================================== */
+button {
+  width: 100%;
+  padding: 16px;
+
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  color: #ffffff;
+
+  border: none;
+  border-radius: var(--radius-md);
+
+  font-size: 17px;
+  font-weight: 800;
+  cursor: pointer;
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.22);
+  transition: transform 0.15s ease, box-shadow 0.25s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+}
+
+/* ==================================================
+   FLASH MESSAGES
+================================================== */
+.flash {
+  padding: 14px 16px;
+  margin-bottom: 18px;
+
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.flash.success {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.flash.error,
+.flash.danger {
+  background: #fee2e2;
+  color: #7f1d1d;
+}
+
+/* ==================================================
+   RESPONSIVE
+================================================== */
+@media (max-width: 600px) {
+  .navbar {
+    padding: 14px 22px;
+    font-size: 20px;
+  }
+
+  .container {
+    padding: 32px 24px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
 }

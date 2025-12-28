@@ -1,90 +1,199 @@
-/* Reset & Base Styles */
+/* =========================
+   THEME VARIABLES
+========================= */
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1e40af;
+    --secondary: #3b82f6;
+
+    --bg-main: linear-gradient(135deg, #eef2ff, #dbe7ff);
+    --bg-card: #ffffff;
+
+    --text-dark: #0f172a;
+    --text-muted: #475569;
+
+    --radius-lg: 24px;
+    --radius-md: 14px;
+
+    --shadow-soft: 0 8px 22px rgba(0,0,0,0.18);
+    --shadow-strong: 0 18px 40px rgba(0,0,0,0.22);
+}
+
+/* =========================
+   RESET
+========================= */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Segoe UI", system-ui, sans-serif;
 }
 
-/* Page Background */
+/* =========================
+   BODY
+========================= */
 body {
-    background: linear-gradient(135deg, #ae91db, #ab9c9c);
+    background: var(--bg-main);
+    padding: 100px 20px 40px;
     min-height: 100vh;
-    padding: 40px 20px;
+
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    overflow-y: auto;
+
+    color: var(--text-dark);
+}
+
+/* =========================
+   NAVBAR
+========================= */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    padding: 14px 36px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    color: #ffffff;
+    z-index: 1000;
+
+    box-shadow: var(--shadow-soft);
+}
+
+.brand-navbar span {
+    font-size: 22px;
+    font-weight: 900;
+}
+
+/* =========================
+   BACK BUTTON (NO HOVER)
+========================= */
+.back-button {
+    background: #ffffff;
+    color: var(--primary);
+
+    padding: 10px 24px;
+    border-radius: 999px;
+
+    font-size: 18px;
+    font-weight: 800;
+    text-decoration: none;
+
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+}
+
+/* FORCE DISABLE HOVER / ACTIVE / FOCUS */
+.back-button:hover,
+.back-button:active,
+.back-button:focus {
+    background: #ffffff;
+    color: var(--primary);
+    transform: none;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+    outline: none;
+}
+
+/* =========================
+   MAIN CONTAINER
+========================= */
+.container {
+    background: var(--bg-card);
+    width: 100%;
+    max-width: 820px;
+
+    padding: 42px 36px;
+    margin-top: 90px;
+
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-strong);
+
     text-align: center;
 }
 
-/* Main Container */
-.container {
-    position: relative;
-    background-color: #ffffff;
-    padding: 40px 30px;
-    border-radius: 20px;
-    width: 100%;
-    max-width: 800px;
-    margin-top: 20px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-}
-
-/* Logo */
+/* =========================
+   LOGO
+========================= */
 .logo {
     width: 120px;
-    margin-bottom: 20px;
+    margin-bottom: 22px;
 }
 
-/* Headings and Paragraphs */
+/* =========================
+   TEXT
+========================= */
 h2,
-h3,
+h3 {
+    margin: 12px 0;
+    font-size: 24px;
+    font-weight: 900;
+    color: var(--text-dark);
+}
+
 p {
     margin: 10px 0;
-    color: #333;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-muted);
 }
 
-/* Buttons */
+/* =========================
+   STATUS
+========================= */
+.status-paid {
+    color: #16a34a;
+    font-size: 18px;
+    font-weight: 900;
+}
+
+/* =========================
+   BUTTON
+========================= */
 .button {
-    padding: 14px 20px;
+    padding: 16px 26px;
+
     font-size: 17px;
-    font-weight: 600;
-    background: blueviolet;
-    color: #fff;
+    font-weight: 800;
+    color: #ffffff;
+
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
     border: none;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
+
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    transition: background 0.3s ease, transform 0.2s ease;
+
+    box-shadow: 0 8px 22px rgba(0,0,0,0.22);
+    transition: transform 0.15s ease, box-shadow 0.25s ease;
+
+    margin-top: 18px;
 }
 
 .button:hover {
-    background: linear-gradient(135deg, #6a1bd9, #e141b4);
-    transform: scale(1.03);
+    transform: translateY(-1px) scale(1.02);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.28);
 }
 
-/* Back Button */
-.back-button {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    font-size: 14px;
-    background-color: #6c757d;
-    color: #ffffff;
-    padding: 8px 14px;
-    text-decoration: none;
-    border-radius: 8px;
-    transition: background-color 0.3s ease;
-    border: none;
-}
-
-.back-button:hover {
-    background-color: #5a6268;
-}
-
-/* Responsive */
+/* =========================
+   RESPONSIVE
+========================= */
 @media (max-width: 600px) {
+
     .container {
-        padding: 30px 20px;
+        margin-top: 110px;
+        padding: 32px 20px;
+    }
+
+    .brand-navbar span {
+        font-size: 20px;
+    }
+
+    .back-button {
+        font-size: 16px;
+        padding: 8px 18px;
     }
 }

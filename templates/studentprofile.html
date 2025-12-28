@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Student Profile - HostelHub</title>
+
+    <!-- Bootstrap + Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='studentprofile.css') }}">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="navbar-title">🏢 HostelHub Profile</div>
+        <a href="{{ url_for('index') }}" class="navbar-back">Back</a>
+    </nav>
+
+    <div class="profile-card">
+
+        <!-- PROFILE IMAGE SECTION -->
+        <div class="text-center">
+            {% if profile and profile.profile_photo %}
+            <img src="{{ url_for('static', filename='profile_pics/' + profile.profile_photo) }}" class="profile-img">
+            {% else %}
+            <i class="bi bi-person-circle profile-icon"></i>
+            {% endif %}
+
+            <h3 class="mt-3 title">{{ user.name }}</h3>
+            <p class="username">@{{ user.username }}</p>
+
+            <a href="/editprofile" class="edit-btn"><i class="bi bi-pencil-square"></i> Edit Profile</a>
+        </div>
+
+        <hr>
+
+        <!-- PERSONAL INFO -->
+        <h4 class="section-title"><i class="bi bi-person-lines-fill"></i> Personal Information</h4>
+        <div class="row mb-2">
+            <div class="col-4 info-label">Full Name:</div>
+            <div class="col-8">{{ user.name }}</div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-4 info-label">Email:</div>
+            <div class="col-8">{{ user.email }}</div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-4 info-label">Mobile:</div>
+            <div class="col-8">{{ (profile.mobile if profile else user.mobile_no) }}</div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-4 info-label">Address:</div>
+            <div class="col-8">{{ (profile.address if profile else user.address) }}</div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-4 info-label">Gender:</div>
+            <div class="col-8">{{ (profile.gender if profile else user.gender) }}</div>
+        </div>
+
+        <hr>
+
+        <!-- ACADEMIC -->
+        <h4 class="section-title"><i class="bi bi-book"></i> Academic Information</h4>
+        <div class="row mb-2">
+            <div class="col-4 info-label">Branch:</div>
+            <div class="col-8">{{ (profile.academic_branch if profile else user.academic_branch) }}</div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-4 info-label">Year:</div>
+            <div class="col-8">{{ (profile.academic_year if profile else user.academic_year) }}</div>
+        </div>
+
+        <hr>
+
+        <!-- HOSTEL ROOM -->
+        <h4 class="section-title"><i class="bi bi-door-open"></i> Hostel Room Allocation</h4>
+        {% if room %}
+        <div class="row mb-2">
+            <div class="col-4 info-label">Room No:</div>
+            <div class="col-8">{{ room.room_no }}</div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-4 info-label">Allocated On:</div>
+            <div class="col-8">{{ room.allocated_on }}</div>
+        </div>
+        {% else %}
+        <p class="text-danger">Room not allocated yet.</p>
+        {% endif %}
+
+    </div>
+
+</body>
+
+</html>

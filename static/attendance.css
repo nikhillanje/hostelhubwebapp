@@ -1,89 +1,216 @@
-/* Reset & Base Styles */
+/* RESET */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Arial, sans-serif;
+    font-family: "Segoe UI", sans-serif;
 }
 
-/* Body with Gradient Background */
+/* BACKGROUND */
 body {
-    background: linear-gradient(135deg, #ae91db, #ab9c9c);
+    background: #e5e7eb;
+    padding-top: 90px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    min-height: 100vh;
-    padding: 20px;
 }
 
-/* Attendance Container */
-.attendance-container {
-    background-color: #ffffff;
-    padding: 40px;
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    width: 320px;
-    max-width: 90%;
-    text-align: center;
-}
-
-/* Heading */
-.attendance-container h2 {
-    margin-bottom: 24px;
-    font-size: 24px;
-    color: #333;
-}
-
-/* Label */
-label {
-    display: block;
-    margin-bottom: 6px;
-    color: #444;
-    font-weight: 500;
-    text-align: left;
-}
-
-/* Inputs */
-input[type="date"] {
+/* NAVBAR */
+.navbar {
+    background: linear-gradient(90deg, #7b2ff7, #3c8dff);
+    padding: 14px 40px;
+    position: fixed;
+    top: 0;
     width: 100%;
-    padding: 10px;
-    border: 1px solid #bbb;
-    border-radius: 8px;
-    font-size: 14px;
-    margin-bottom: 16px;
-}
-
-/* Main Button */
-button {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
-    background-color: #7b2ff7;
     color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 800;
+    font-size: 22px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    z-index: 999;
+}
+
+.nav-title {
+    font-size: 24px;
+    font-weight: 800;
+    color: white;
+    text-decoration: none;
+}
+
+.nav-back {
+    background: white;
+    color: #2563eb;
+    padding: 8px 20px;
+    font-weight: 600;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.nav-back:hover {
+    background: #2563eb;
+    color: white;
+}
+
+/* MAIN WRAPPER (white card) */
+.card-wrapper {
+    width: 85%;
+    max-width: 950px;
+    background: white;
+    padding: 35px;
+    margin-top: 20px;
+    border-radius: 16px;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.15);
+}
+
+/* PAGE TITLE */
+h1 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 32px;
+    font-weight: 800;
+    color: #222;
+}
+
+/* DATE FORM */
+#dateForm {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+label {
+    font-weight: 700;
+    font-size: 18px;
+}
+
+input[type="date"] {
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    margin-left: 8px;
+}
+
+button {
+    padding: 12px 22px;
+    background: #7b2ff7;
+    color: white;
+    border: none;
+    border-radius: 10px;
     font-weight: bold;
-    font-size: 15px;
+    margin-left: 10px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: 0.3s;
+    font-size: 16px;
 }
 
 button:hover {
-    background-color: #5e20c6;
+    background: #5e20c6;
 }
 
-/* Back Button */
-#back-button {
-    margin-top: 16px;
-    background-color: #f44336;
+/* SUMMARY BOX */
+.summary-box {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 12px;
+    background: #f8f9ff;
+    border-radius: 12px;
+    margin-bottom: 20px;
 }
 
-#back-button:hover {
-    background-color: #d32f2f;
-}
-
-/* Optional Message */
-#message {
-    margin-top: 12px;
+.present {
     color: green;
-    font-weight: 500;
+    font-weight: 800;
+}
+
+.absent {
+    color: red;
+    font-weight: 800;
+}
+
+/* TABLE STYLING */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 25px rgba(0,0,0,0.10);
+}
+
+thead tr {
+    background: #7b2ff7;
+    color: white;
+}
+
+th, td {
+    padding: 14px;
+    text-align: center;
+    font-size: 15px;
+}
+
+tbody tr:nth-child(even) {
+    background: #f3f3f3;
+}
+
+tbody tr:hover {
+    background: #ebebeb;
+}
+
+/* DOWNLOAD BUTTON */
+.download-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#downloadPDF {
+    background: #7b2ff7;
+    padding: 12px 24px;
+    border: none;
+    color: white;
+    font-size: 17px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#downloadPDF:hover {
+    background: #5e20c6;
+}
+
+/* RESPONSIVE */
+@media (max-width: 750px) {
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    tr {
+        margin-bottom: 15px;
+        padding: 12px;
+        background: #fff;
+        border-radius: 12px;
+    }
+
+    td {
+        padding-left: 50%;
+        position: relative;
+        text-align: left;
+        font-size: 14px;
+    }
+
+    td::before {
+        position: absolute;
+        left: 20px;
+        font-weight: 700;
+        color: #333;
+    }
+
+    td:nth-of-type(1)::before { content: "Name"; }
+    td:nth-of-type(2)::before { content: "Mobile"; }
+    td:nth-of-type(3)::before { content: "Email"; }
+    td:nth-of-type(4)::before { content: "Status"; }
 }

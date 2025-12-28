@@ -1,105 +1,159 @@
-/* Reset and base styles */
+/* RESET */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* BODY */
 body {
-    background: linear-gradient(135deg, #ae91db, #ab9c9c);
-    padding: 20px;
+    background: #eef2ff;
     min-height: 100vh;
+    padding-top: 80px;
 }
 
+/* HEADER */
+.top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 18px 30px;
+    background: linear-gradient(90deg, #7b2ff7, #3f8cff);
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* BACK BUTTON */
+.back-btn {
+    background: white;
+    color: #2563eb;
+    padding: 10px 22px;
+    border-radius: 999px;
+    font-size: 16px;
+    font-weight: 800;
+    text-decoration: none;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+/* PAGE */
+.page-wrapper {
+    padding: 40px 30px;
+    display: flex;
+    justify-content: center;
+}
+
+/* CARD */
 .container {
-    background-color: #e8e0e0;
-    padding: 50px;
-    border-radius: 16px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    background: white;
     width: 100%;
     max-width: 1200px;
-    text-align: center;
-    margin: 20px auto 40px auto;
+    padding: 30px;
+    border-radius: 18px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
 }
 
 .container h1 {
-    margin-bottom: 40px;
-    font-size: 32px;
-    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* FILTERS */
+.filters {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.filters select {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+}
+
+/* TABLE */
+.table-wrapper {
+    overflow-x: auto;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #f9f9f9;
-    margin-bottom: 30px;
+}
+
+thead {
+    background: linear-gradient(90deg, #7b2ff7, #3f8cff);
+    color: white;
 }
 
 th,
 td {
-    padding: 16px;
-    border: 1px solid #ccc;
+    padding: 12px;
     text-align: center;
-    font-size: 15px;
-}
-
-th {
-    background-color: #e0d8f5;
-    color: #222;
-    border: 2px solid black;
-}
-
-tr:hover td {
-    background-color: #f0f7ff;
-    transition: 0.3s;
-}
-
-.button-group {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
-    margin-top: 20px;
-}
-
-button,
-#back-button {
-    padding: 12px 20px;
-    border: none;
-    border-radius: 8px;
-    background-color: #7b2ff7;
-    color: white;
-    font-weight: bold;
-    font-size: 15px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-button:hover,
-#back-button:hover {
-    background-color: #5e20c6;
-}
-
-#back-button {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    z-index: 1000;
-}
-
-.delete-btn {
-    padding: 8px 14px;
-    border: none;
-    border-radius: 6px;
-    background-color: #ff4d4d;
-    color: white;
-    font-weight: bold;
     font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
-.delete-btn:hover {
-    background-color: #cc0000;
+tbody tr:nth-child(even) {
+    background: #f5f7ff;
+}
+
+tbody tr:hover {
+    background: #e0e7ff;
+}
+
+/* BUTTONS */
+.delete-btn {
+    background: #ef4444;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.download-btn {
+    margin-top: 20px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+
+    body {
+        padding-top: 70px;
+    }
+
+    .top-bar {
+        font-size: 16px;
+        padding: 12px 14px;
+    }
+
+    .back-btn {
+        padding: 6px 14px;
+        font-size: 13px;
+    }
+
+    .container {
+        padding: 16px;
+    }
+
+    .download-btn {
+        width: 100%;
+    }
 }

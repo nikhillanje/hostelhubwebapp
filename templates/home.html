@@ -2,38 +2,121 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MessTrack</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HostelHub</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
 </head>
 
 <body>
-    <!-- Navbar -->
+
+    <!-- NAVBAR -->
     <nav class="navbar">
-        <div class="logo">MessTrack</div>
-        <div class="helpline-btn">📞 Helpline Number: {{ helpline }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-        <ul class="nav-menu">
-            <li class="dropdown">
-                <a href="#" class="dropbtn">Login ▾</a>
-                <ul class="dropdown-content">
-                    <li><a href="#">Admin Login</a></li>
+        <div class="brand">🏢 <span>HostelHub</span></div>
+
+        <div class="nav-right">
+
+
+            <button class="pill-btn helpline-pill">📞 Helpline No. {{ helpline }}</button>
+
+            <div class="login-dropdown">
+                <button class="pill-btn login-btn" onclick="toggleLoginDropdown()">Login ▾</button>
+                <ul class="dropdown-menu" id="loginDropdown">
+                    <li><a href="{{ url_for('xHostelLogin') }}">Admin Login</a></li>
                     <li><a href="{{ url_for('adminlogin') }}">Mess Login</a></li>
                     <li><a href="{{ url_for('login') }}">Student Login</a></li>
                 </ul>
-            </li>
-        </ul>
+            </div>
+        </div>
     </nav>
 
-    <!-- Welcome Section -->
-    <section class="welcome">
-        <h1 class="main-title">"WELCOME TO MESSTRACK"</h1>
-        <p class="info">
-            "MessTrack simplifies mess management for students.<br>
-            Easily track attendance, view meals, and manage accounts – all in one platform!"<br>
-            This keeps it brief and clear while conveying the core features of MessTrack.
-        </p>
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="hero-text">
+                <p class="hero-tag">SMART HOSTEL MANAGEMENT</p>
+                <h1>Welcome to <span>HostelHub</span></h1>
+                <p class="hero-description">
+                    The ultimate digital platform for hostel & mess management.
+                    Stay connected with automation and real-time updates.
+                </p>
+            </div>
+
+            <div class="hero-img">
+                <img src="{{ url_for('static', filename='profile_pics/index_img.jpg') }}" alt="">
+            </div>
+        </div>
     </section>
+
+
+    <!-- LOGIN PANEL -->
+    <section class="login-section">
+        <h2>Choose Login Panel</h2>
+
+        <div class="login-cards">
+            <div class="card">
+                <h3>🏫 Admin Login</h3>
+                <p>Manage hostel, rooms, payments & profiles.</p>
+                <a href="{{ url_for('xHostelLogin') }}">Proceed →</a>
+            </div>
+
+            <div class="card">
+                <h3>🍽 Mess Login</h3>
+                <p>Update menu, meal count & mess bill.</p>
+                <a href="{{ url_for('adminlogin') }}">Proceed →</a>
+            </div>
+
+            <div class="card">
+                <h3>🎓 Student Login</h3>
+                <p>Check meals, notices, attendance & complaints.</p>
+                <a href="{{ url_for('login') }}">Proceed →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="full-features">
+        <h2>Everything you need in one place</h2>
+        <p class="subtext">Seamlessly integrated hostel management modules</p>
+
+        <div class="feature-grid">
+            <div class="f-card">
+                <h3>🛏 Room Allocation</h3>
+                <p>Automated room assignment system.</p>
+            </div>
+            <div class="f-card">
+                <h3>💸 Fee Management</h3>
+                <p>Digital payments & receipts.</p>
+            </div>
+            <div class="f-card">
+                <h3>🍽 Mess & Dining</h3>
+                <p>Menu update & meal tracking.</p>
+            </div>
+            <div class="f-card">
+                <h3>🛠 Complaints</h3>
+                <p>Issue tracking system.</p>
+            </div>
+            <div class="f-card">
+                <h3>🎫 Gate Pass</h3>
+                <p>QR-based entry/exit system.</p>
+            </div>
+            <div class="f-card">
+                <h3>📢 Notices & Alerts</h3>
+                <p>Urgent announcements.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 HostelHub • Designed by Nikhil </p>
+    </footer>
+
+    <script>
+        function toggleLoginDropdown() {
+            document.getElementById("loginDropdown").classList.toggle("show");
+        }
+    </script>
+
 </body>
 
 </html>

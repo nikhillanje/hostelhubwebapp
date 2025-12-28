@@ -1,25 +1,128 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
+/* =========================
+   THEME VARIABLES
+========================= */
+:root {
+    --primary: #2563eb;
+    --secondary: #3b82f6;
+
+    --bg-main: linear-gradient(135deg, #eef2ff, #dbe7ff);
+    --bg-card: #ffffff;
+
+    --text-dark: #0f172a;
+    --text-muted: #475569;
+
+    --border-light: #e5e7eb;
+
+    --radius-lg: 18px;
+    --radius-md: 12px;
+
+    --shadow-soft: 0 6px 18px rgba(0,0,0,0.18);
+    --shadow-strong: 0 14px 36px rgba(0,0,0,0.22);
+}
+
+/* =========================
+   RESET
+========================= */
+* {
     margin: 0;
     padding: 0;
-    position: relative;
+    box-sizing: border-box;
+    font-family: "Segoe UI", system-ui, sans-serif;
 }
 
+/* =========================
+   BODY
+========================= */
+body {
+    background: var(--bg-main);
+    min-height: 100vh;
+    padding-top: 110px;
+    color: var(--text-dark);
+}
+
+/* =========================
+   NAVBAR
+========================= */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    padding: 14px 40px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 900;
+
+    box-shadow: var(--shadow-soft);
+    z-index: 1000;
+}
+
+.nav-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* =========================
+   BACK BUTTON (NO HOVER)
+========================= */
+.back-button {
+    background: #ffffff;
+    color: var(--primary);
+
+    padding: 9px 22px;
+    border-radius: 999px;
+
+    font-size: 15px;
+    font-weight: 800;
+    text-decoration: none;
+
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+}
+
+/* FORCE STATIC */
+.back-button:hover,
+.back-button:active,
+.back-button:focus {
+    background: #ffffff;
+    color: var(--primary);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+    outline: none;
+}
+
+/* =========================
+   MAIN CONTAINER
+========================= */
 .container {
-    margin: 40px auto;
-    padding: 20px;
+    margin: 20px auto 40px;
+    padding: 28px;
     max-width: 1000px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-strong);
 }
 
+/* =========================
+   HEADING
+========================= */
 h1 {
     text-align: center;
-    color: #333;
+    margin-bottom: 22px;
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--text-dark);
 }
 
+/* =========================
+   TABLE
+========================= */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -27,36 +130,53 @@ table {
 }
 
 thead {
-    background-color: #8d61d4;
-    color: white;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    color: #ffffff;
 }
 
 th,
 td {
-    padding: 12px;
+    padding: 14px 16px;
     text-align: left;
-    border-bottom: 1px solid #ccc;
+    font-size: 15px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+tbody tr:nth-child(even) {
+    background: #f6f7ff;
 }
 
 tbody tr:hover {
-    background-color: #f1f1f1;
+    background: #eef2ff;
 }
 
-.back-button {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    text-decoration: none;
-    background-color: #7b2ff7;
-    color: white;
-    padding: 10px 16px;
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: bold;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease;
-}
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
 
-.back-button:hover {
-    background-color: #0056b3;
+    .container {
+        margin: 0 16px 30px;
+        padding: 22px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    th,
+    td {
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    .navbar {
+        padding: 14px 20px;
+        font-size: 20px;
+    }
+
+    .back-button {
+        padding: 8px 18px;
+        font-size: 14px;
+    }
 }

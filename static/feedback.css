@@ -1,146 +1,153 @@
-/* Reset & Base Styles */
-* {
+/* =========================
+   THEME VARIABLES
+========================= */
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1e40af;
+    --secondary: #3b82f6;
+    --bg-main: linear-gradient(135deg, #eef2ff, #dbe7ff);
+    --bg-card: #ffffff;
+    --text-dark: #0f172a;
+    --text-muted: #475569;
+    --border-light: #d1d5db;
+    --radius-lg: 24px;
+    --radius-md: 14px;
+    --radius-sm: 10px;
+    --shadow-soft: 0 8px 22px rgba(0,0,0,0.18);
+    --shadow-strong: 0 18px 40px rgba(0,0,0,0.22);
+}
+
+/* =========================
+   RESET
+========================= */
+html, body {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: 100%;
+    height: auto;
+    font-family: "Segoe UI", system-ui, sans-serif;
 }
 
-/* Page Background */
+/* =========================
+   BODY
+========================= */
 body {
-    background: linear-gradient(135deg, #ae91db, #ab9c9c);
+    background: var(--bg-main);
     min-height: 100vh;
-    margin: 0;
-    padding: 40px 20px;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+.navbar {
+    width: 100%;
+    height: 68px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 36px;
+    font-size: 22px;
+    font-weight: 800;
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-shadow: var(--shadow-soft);
+    z-index: 1000;
+}
+
+/* BACK BUTTON – CONSISTENT */
+.navbar-back {
+    background: #ffffff;
+    color: var(--primary);
+    padding: 8px 22px;
+    border-radius: 999px;
+    font-size: 18px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+    transition: all 0.25s ease;
+    margin-right: 30px;
+}
+
+.navbar-back:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 26px rgba(0,0,0,0.3);
+}
+
+/* =========================
+   FORM WRAPPER
+========================= */
+.form-wrapper {
+    width: 100%;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
-    overflow-y: auto;
+    padding: 110px 20px 40px;
 }
 
-/* Feedback Form Container */
+/* =========================
+   FORM CARD
+========================= */
 .feedback-form {
-    background-color: #e8e0e0;
-    padding: 40px 30px;
-    border-radius: 20px;
+    background: var(--bg-card);
+    padding: 46px 38px;
+    border-radius: var(--radius-lg);
     width: 100%;
-    max-width: 800px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    box-shadow: var(--shadow-strong);
     text-align: center;
 }
 
-/* Heading */
-.feedback-form h2 {
-    font-size: 24px;
-    color: #34568B;
-    margin-bottom: 30px;
-    font-weight: 600;
-}
-
-/* Form Row */
-.form-row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 20px;
-    margin-bottom: 15px;
-}
-
-/* Input Pair */
-.input-pair {
-    flex: 1 1 100%;
-    display: flex;
-    flex-direction: column;
-    min-width: 200px;
-    text-align: left;
-}
-
-/* Labels */
-.feedback-form label {
-    margin-bottom: 5px;
-    color: #333;
-    font-weight: 500;
-}
-
-/* Inputs & Textarea */
-.feedback-form input[type="text"],
-.feedback-form input[type="email"],
+/* =========================
+   INPUTS
+========================= */
+.feedback-form input,
 .feedback-form textarea {
     width: 100%;
-    padding: 12px;
-    font-size: 16px;
-    border-radius: 10px;
-    border: 1px solid #ddd;
-    background-color: rgba(255, 255, 255, 0.95);
-    color: #333;
-    transition: border 0.3s, box-shadow 0.3s;
-    resize: vertical;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-light);
+    padding: 14px;
+    font-size: 15px;
+    background: #f8faff;
+    transition: all 0.25s ease;
 }
 
 .feedback-form input:focus,
 .feedback-form textarea:focus {
-    border-color: #7b2ff7;
-    box-shadow: 0 0 4px rgba(123, 47, 247, 0.5);
+    border-color: var(--primary);
+    box-shadow: 0 0 8px rgba(37,99,235,0.35);
     outline: none;
 }
 
-/* Submit Button */
-.feedback-form .submit-button {
+/* =========================
+   SUBMIT BUTTON
+========================= */
+.submit-button {
     width: 100%;
-    padding: 14px;
-    font-size: 17px;
-    font-weight: 600;
-    border-radius: 12px;
-    background-color: #6a1bd9;
-    color: white;
+    padding: 16px;
+    margin-top: 18px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
     border: none;
+    color: #ffffff;
+    font-size: 17px;
+    font-weight: 800;
+    border-radius: var(--radius-md);
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    transition: transform 0.15s ease, box-shadow 0.25s ease;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.22);
 }
 
-.feedback-form .submit-button:hover {
-    transform: scale(1.03);
-    box-shadow: 0 6px 16px rgba(123, 47, 247, 0.4);
-    background: linear-gradient(135deg, #6a1bd9, #e141b4);
+.submit-button:hover {
+    transform: translateY(-1px) scale(1.01);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.28);
 }
 
-
-.back-button {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    padding: 10px 20px;
-    background-color: #6c757d;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 10px;
-    font-weight: 600;
-    font-size: 15px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    z-index: 999;
-}
-
-.back-button:hover {
-    background-color: #5a6268;
-}
-
-/* Error Message */
-.error-message {
-    color: red;
-    font-size: 14px;
-    text-align: left;
-    margin-top: 5px;
-}
-
-/* Responsive */
-@media (max-width: 600px) {
-    .input-pair {
-        flex: 1 1 100%;
-    }
-
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 700px) {
     .feedback-form {
-        padding: 30px 20px;
+        padding: 32px 22px;
     }
 }

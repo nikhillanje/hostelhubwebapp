@@ -4,13 +4,23 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MessTrack Feedbacks</title>
+    <title>Feedbacks - HostelHub</title>
+
     <link rel="stylesheet" href="{{ url_for('static', filename='adminfeedback.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
 </head>
 
 <body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-title">Feedback Submissions</div>
+        <a href="#" onclick="history.back()" class="nav-back">Back</a>
+    </nav>
+
     <div class="container">
         <h1>Feedback Submissions</h1>
+
         <table id="feedbackTable">
             <thead>
                 <tr>
@@ -20,6 +30,7 @@
                     <th>Suggestion</th>
                 </tr>
             </thead>
+
             <tbody>
                 {% for item in feedbacks %}
                 <tr>
@@ -32,7 +43,6 @@
             </tbody>
         </table>
     </div>
-    <a href="{{ url_for('adminindex') }}" class="back-button">Back</a>
 
 </body>
 

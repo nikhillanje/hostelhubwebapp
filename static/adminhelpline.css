@@ -1,100 +1,147 @@
-/* Reset & Base Styling */
+/* ================= RESET ================= */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "Segoe UI", system-ui, sans-serif;
 }
 
+/* ================= PAGE BACKGROUND ================= */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    padding: 20px;
+    background: linear-gradient(135deg, #eef2ff, #dbe7ff);
+    padding-top: 110px;
+    min-height: 100vh;
 }
 
-/* Header */
-h2 {
-    text-align: center;
-    margin-top: 40px;
-    margin-bottom: 30px;
-    color: #333;
-    font-weight: 700;
-    font-size: 2rem;
-}
-
-/* Form Container */
-form {
-    max-width: 500px;
-    margin: 0 auto;
-    text-align: center;
-    background-color: white;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-form input[type="text"] {
-    width: 80%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    margin-bottom: 20px;
-    outline: none;
-    transition: border-color 0.3s ease;
-}
-
-form input[type="text"]:focus {
-    border-color: #6c4bbb;
-}
-
-form button {
-    padding: 10px 20px;
-    background-color: #6c4bbb;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-form button:hover {
-    background-color: #543d9d;
-}
-
-/* Success Message */
-p {
-    text-align: center;
-    font-weight: bold;
-    font-style: italic;
-    margin-top: 20px;
-}
-
-/* Back Button */
-.back-button {
+/* ================= NAVBAR ================= */
+.navbar {
+    background: linear-gradient(90deg, #7b2ff7, #3c8dff);
+    padding: 14px 40px;
     position: fixed;
-    top: 20px;
-    right: 20px;
-    background-color: gray;
+    top: 0;
+    width: 100%;
     color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 6px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    font-weight: 900;
+    font-size: 22px;
+
+    box-shadow: 0 6px 22px rgba(0,0,0,0.25);
+    z-index: 999;
+}
+
+/* ================= BACK BUTTON ================= */
+.nav-back {
     text-decoration: none;
-    font-size: 14px;
-    font-weight: bold;
+    background: #ffffff;
+    color: #2563eb;
+    padding: 9px 22px;
+    border-radius: 999px;
+    font-weight: 700;
+
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+    transition: all 0.25s ease;
+}
+
+
+/* ================= FORM WRAPPER ================= */
+.form-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+/* ================= CARD ================= */
+.helpline-card {
+    width: 92%;
+    max-width: 460px;
+    background: white;
+    padding: 40px 32px;
+    border-radius: 18px;
+
+    box-shadow: 0 12px 38px rgba(0,0,0,0.15);
+    text-align: center;
+}
+
+/* ================= HEADING ================= */
+.helpline-card h2 {
+    margin-bottom: 22px;
+    font-size: 26px;
+    font-weight: 900;
+    color: #0f172a;
+}
+
+/* ================= INPUT ================= */
+.helpline-card input {
+    width: 100%;
+    padding: 14px;
+    border-radius: 14px;
+    border: 1px solid #cbd5e1;
+    margin-bottom: 22px;
+    font-size: 16px;
+
+    background: #f8faff;
+    transition: 0.25s;
+}
+
+.helpline-card input:focus {
+    border-color: #7b2ff7;
+    box-shadow: 0 0 10px rgba(123,47,247,0.35);
+    outline: none;
+}
+
+/* ================= BUTTON ================= */
+.helpline-card button {
+    width: 100%;
+    padding: 15px;
+
+    border: none;
+    background: linear-gradient(90deg, #7b2ff7, #3c8dff);
+    color: white;
+
+    border-radius: 14px;
+    font-size: 17px;
+    font-weight: 800;
+
     cursor: pointer;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease;
-    z-index: 1000;
+    transition: 0.25s;
+
+    box-shadow: 0 6px 18px rgba(0,0,0,0.22);
 }
 
-.back-button:hover {
-    background-color: #6c4bbb;
+.helpline-card button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 26px rgba(0,0,0,0.28);
 }
 
+/* ================= SUCCESS MESSAGE ================= */
+.success-msg {
+    margin-top: 18px;
+    padding: 12px 14px;
+    background: #e6f6ec;
+    border-left: 5px solid #16a34a;
+    border-radius: 10px;
+    color: #065f46;
+    font-weight: 700;
+    font-size: 15px;
+}
 
-a i {
-    font-weight: normal !important;
-    font-style: normal;
+/* ================= RESPONSIVE ================= */
+@media (max-width: 600px) {
+    .navbar {
+        padding: 14px 22px;
+        font-size: 20px;
+    }
+
+    .helpline-card {
+        padding: 32px 24px;
+    }
+
+    .helpline-card h2 {
+        font-size: 24px;
+    }
 }

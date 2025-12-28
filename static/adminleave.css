@@ -1,140 +1,156 @@
-/* Reset & Base Styles */
+/* ================= RESET ================= */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Segoe UI", system-ui, sans-serif;
 }
 
-/* Gradient Background */
+/* ================= PAGE BACKGROUND ================= */
 body {
-    background: linear-gradient(135deg, #ae91db, #ab9c9c);
+    background: linear-gradient(135deg, #eef2ff, #dbe7ff);
+    padding-top: 110px;
     min-height: 100vh;
-    padding: 40px 20px;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
-    overflow-y: auto;
 }
 
-/* Main Container */
-.container {
-    max-width: 800px;
-    width: 100%;
-    margin-top: 30px;
-    padding: 30px 40px;
-    border-radius: 15px;
-    background-color: #ffffff;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    position: relative;
-}
-
-/* Page Heading */
-h1 {
-    text-align: center;
-    margin-bottom: 30px;
-    color: #34568B;
-    font-size: 26px;
-    font-weight: 600;
-}
-
-/* Table Styling */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-thead tr {
-    background-color: #004080;
-    color: white;
-}
-
-thead th,
-tbody td {
-    padding: 12px 15px;
-    border: 1px solid #ddd;
-    text-align: left;
-    font-size: 15px;
-}
-
-tbody tr:nth-child(even) {
-    background-color: #f3f6fa;
-}
-
-/* View Button */
-.btn-view {
-    display: inline-block;
-    padding: 10px 16px;
-    font-size: 15px;
-    background-color: #7b2ff7;
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: 600;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-}
-
-.btn-view:hover {
-    background: linear-gradient(135deg, #6a1bd9, #e141b4);
-    transform: scale(1.03);
-}
-
-/* Details Table */
-.details-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 30px;
-}
-
-.details-table th,
-.details-table td {
-    padding: 10px 15px;
-    border: 1px solid #ccc;
-    background-color: #f9f9f9;
-    font-size: 15px;
-}
-
-.details-table th {
-    width: 35%;
-    background-color: #e6f0ff;
-    text-align: left;
-    color: #333;
-}
-
-/* Responsive */
-@media (max-width: 600px) {
-    .container {
-        padding: 25px 20px;
-    }
-
-    h1 {
-        font-size: 22px;
-    }
-
-    .btn-view {
-        width: 100%;
-        text-align: center;
-    }
-}
-
-.back-button {
+/* ================= NAVBAR ================= */
+.navbar {
+    background: linear-gradient(90deg, #7b2ff7, #3c8dff);
+    padding: 14px 40px;
     position: fixed;
-    top: 20px;
-    right: 20px;
-    padding: 10px 20px;
-    background-color: #6c757d;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 10px;
-    font-weight: 600;
-    font-size: 15px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    top: 0;
+    width: 100%;
+    color: white;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    font-weight: 900;
+    font-size: 22px;
+
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.25);
     z-index: 999;
 }
 
-.back-button:hover {
-    background-color: #5a6268;
+/* ================= BACK BUTTON ================= */
+.nav-back {
+    background: #ffffff;
+    color: #2563eb;
+
+    padding: 10px 22px;
+    /* SAME SIZE everywhere */
+    border-radius: 999px;
+    /* pill shape */
+
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 800;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    transition: 0.25s ease;
+}
+
+
+
+/* ================= MAIN CONTENT CARD ================= */
+.container {
+    width: 92%;
+    max-width: 920px;
+    background: white;
+    padding: 38px 34px;
+    border-radius: 20px;
+    box-shadow: 0 14px 42px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+
+/* ================= HEADING ================= */
+h1 {
+    font-size: 28px;
+    color: #0f172a;
+    margin-bottom: 22px;
+    font-weight: 900;
+}
+
+/* ================= TABLE ================= */
+table {
+    width: 100%;
+    margin-top: 18px;
+    border-collapse: collapse;
+    border-radius: 16px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+}
+
+thead {
+    background: linear-gradient(90deg, #7b2ff7, #3c8dff);
+    color: white;
+}
+
+th,
+td {
+    padding: 16px;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 16px;
+    text-align: center;
+}
+
+tbody tr:nth-child(even) {
+    background: #f5f6ff;
+}
+
+tbody tr:hover {
+    background: #eef2ff;
+    transition: 0.2s ease;
+}
+
+/* ================= VIEW BUTTON ================= */
+.btn-view {
+    padding: 9px 18px;
+    background: linear-gradient(90deg, #3c8dff, #2563eb);
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 14px;
+    transition: 0.25s;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+}
+
+.btn-view:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.28);
+}
+
+/* ================= NO DATA ================= */
+.no-data {
+    font-size: 18px;
+    color: #475569;
+    font-style: italic;
+    margin-top: 22px;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 780px) {
+
+    th,
+    td {
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    .container {
+        padding: 28px 22px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
 }

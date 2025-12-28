@@ -1,0 +1,217 @@
+/* =========================
+   THEME VARIABLES
+========================= */
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1e40af;
+    --secondary: #3b82f6;
+    --bg-main: linear-gradient(135deg, #eef2ff, #dbe7ff);
+    --bg-card: #ffffff;
+    --text-dark: #0f172a;
+    --text-muted: #475569;
+    --border-light: #d1d5db;
+    --radius-lg: 28px;
+    --radius-md: 14px;
+    --shadow-soft: 0 8px 22px rgba(0,0,0,0.18);
+    --shadow-strong: 0 18px 40px rgba(0,0,0,0.22);
+}
+
+/* =========================
+   RESET
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+/* =========================
+   BODY
+========================= */
+body {
+    background: var(--bg-main);
+    padding-top: 100px;
+    min-height: 100vh;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+.navbar {
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    padding: 14px 46px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 800;
+    font-size: 22px;
+    box-shadow: var(--shadow-soft);
+    z-index: 1000;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* BACK BUTTON – CONSISTENT */
+.nav-back {
+    background: #ffffff;
+    color: var(--primary);
+    padding: 10px 24px;
+    font-weight: 700;
+    border-radius: 999px;
+    text-decoration: none;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+    transition: all 0.25s ease;
+}
+
+.nav-back:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 26px rgba(0,0,0,0.3);
+}
+
+/* =========================
+   MAIN WRAPPER
+========================= */
+.attendance-wrapper {
+    width: 92%;
+    max-width: 1200px;
+    margin: 40px auto;
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-strong);
+    display: flex;
+    overflow: hidden;
+}
+
+/* =========================
+   LEFT CARD
+========================= */
+.left-card {
+    flex: 1;
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.left-card h2 {
+    font-size: 26px;
+    font-weight: 900;
+    color: var(--text-dark);
+    margin-bottom: 26px;
+}
+
+/* =========================
+   FORM
+========================= */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+label {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+input[type="date"] {
+    padding: 14px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-light);
+    font-size: 15px;
+    background: #f8faff;
+}
+
+input[type="date"]:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 8px rgba(37,99,235,0.35);
+    outline: none;
+}
+
+/* =========================
+   BUTTON
+========================= */
+button {
+    margin-top: 10px;
+    padding: 16px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    color: #ffffff;
+    border-radius: var(--radius-md);
+    border: none;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.22);
+    transition: transform 0.15s ease, box-shadow 0.25s ease;
+}
+
+button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.28);
+}
+
+/* =========================
+   MESSAGE
+========================= */
+#message {
+    margin-top: 16px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--primary-dark);
+}
+
+/* =========================
+   RIGHT IMAGE
+========================= */
+.right-image {
+    flex: 1.1;
+    background: linear-gradient(135deg, #3b82f6, #60a5fa);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+}
+
+.right-image img {
+    width: 100%;
+    max-width: 420px;
+    border-radius: 24px;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+}
+
+.right-image img:hover {
+    transform: scale(1.03);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 900px) {
+    .attendance-wrapper {
+        flex-direction: column;
+    }
+
+    .left-card {
+        padding: 40px 26px;
+    }
+
+    .right-image {
+        padding: 20px;
+    }
+
+    .right-image img {
+        max-width: 320px;
+        border-radius: 18px;
+    }
+}

@@ -3,36 +3,54 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!downloadBtn) return;
 
-    downloadBtn.addEventListener("click", () => {
+    downloadBtn.addEventListener("click", async () => {
         const container = document.querySelector(".container");
+
         if (!container) {
             alert("Container not found!");
             return;
         }
 
-        // Use html2canvas to capture container as image
-        html2canvas(container).then(canvas => {
+        try {
+            // Improve canvas quality
+            const canvas = await html2canvas(container, {
+                scale: 2,           // High resolution
+                useCORS: true,
+                backgroundColor: "#ffffff",
+                scrollY: -window.scrollY
+            });
+
             const imgData = canvas.toDataURL("image/png");
 
-            // Create a new jsPDF instance
             const pdf = new window.jspdf.jsPDF("p", "mm", "a4");
 
             const pageWidth = pdf.internal.pageSize.getWidth();
             const pageHeight = pdf.internal.pageSize.getHeight();
 
-            const imgWidth = pageWidth - 20; // 10 mm margin left and right
+            const margin = 10;
+            const imgWidth = pageWidth - margin * 2;
             const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-            let position = 10; // start 10mm from top
+            let heightLeft = imgHeight;
+            let position = margin;
 
-            // Add image to pdf
-            pdf.addImage(imgData, "PNG", 10, position, imgWidth, imgHeight);
+            // First page
+            pdf.addImage(imgData, "PNG", margin, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
 
-            // Save PDF with filename
+            // Extra pages if needed
+            while (heightLeft > 0) {
+                position = heightLeft - imgHeight + margin;
+                pdf.addPage();
+                pdf.addImage(imgData, "PNG", margin, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+            }
+
             pdf.save("Mess-Timetable.pdf");
-        }).catch(err => {
+
+        } catch (err) {
             console.error("PDF generation failed:", err);
-            alert("Failed to generate PDF.");
-        });
+            alert("Failed to generate PDF. Please try again.");
+        }
     });
 });

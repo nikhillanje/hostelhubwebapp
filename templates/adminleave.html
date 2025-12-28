@@ -3,13 +3,23 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>Admin - Leave Applications List</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='adminleave.css') }}" />
+    <title>Leave Applications - HostelHub</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='adminleave.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
 </head>
 
 <body>
-    <a href="{{ url_for('adminindex') }}" class="back-button">Back</a>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="navbar-title">📄 Leave Applications</div>
+        <a href="#" onclick="history.back()" class="nav-back">Back</a>
+    </nav>
+
+    <!-- MAIN CONTENT -->
     <div class="container">
+
         <h1>Leave Applications</h1>
 
         {% if leave_applications %}
@@ -21,23 +31,28 @@
                     <th>View</th>
                 </tr>
             </thead>
+
             <tbody>
                 {% for app in leave_applications %}
                 <tr>
                     <td>{{ app.student_name }}</td>
                     <td>{{ app.date }}</td>
                     <td>
-                        <a class="btn-view"
-                            href="{{ url_for('adminleaveapplications', application_id=app._id) }}">View</a>
+                        <a class="btn-view" href="{{ url_for('adminleaveapplications', application_id=app._id) }}">
+                            View
+                        </a>
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+
         {% else %}
-        <p>No leave applications found.</p>
+        <p class="no-data">No leave applications found.</p>
         {% endif %}
+
     </div>
+
 </body>
 
 </html>

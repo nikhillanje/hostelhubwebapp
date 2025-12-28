@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Set Hostel Fee | HostelHub</title>
+
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+
+    <style>
+        /* ================= RESET ================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", system-ui, sans-serif;
+        }
+
+        /* ================= PAGE BACKGROUND ================= */
+        body {
+            background: linear-gradient(135deg, #eef2ff, #dbe7ff);
+            padding-top: 110px;
+            min-height: 100vh;
+        }
+
+        /* ================= NAVBAR ================= */
+        .navbar {
+            background: linear-gradient(90deg, #7b2ff7, #3c8dff);
+            padding: 14px 40px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            color: white;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            font-size: 24px;
+            font-weight: 900;
+
+            box-shadow: 0 6px 22px rgba(0,0,0,0.25);
+            z-index: 999;
+        }
+
+        /* ================= BACK BUTTON ================= */
+        .nav-back {
+            background: #ffffff;
+            color: #2563eb;
+            padding: 10px 22px;
+            text-decoration: none;
+            border-radius: 999px;
+            font-weight: 700;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+            transition: all 0.25s ease;
+        }
+
+        /* ================= MAIN CARD ================= */
+        .container {
+            max-width: 620px;
+            width: 92%;
+            margin: auto;
+            background: white;
+            padding: 34px 28px;
+            border-radius: 18px;
+            box-shadow: 0 12px 38px rgba(0,0,0,0.15);
+        }
+
+        /* ================= HEADING ================= */
+        h2 {
+            text-align: center;
+            font-size: 26px;
+            color: #0f172a;
+            font-weight: 900;
+            margin-bottom: 26px;
+        }
+
+        /* ================= FORM ================= */
+        label {
+            display: block;
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #1e293b;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            border-radius: 14px;
+            border: 1px solid #cbd5e1;
+            font-size: 16px;
+            background: #f8faff;
+            transition: 0.25s;
+            margin-bottom: 22px;
+        }
+
+        input:focus {
+            border-color: #7b2ff7;
+            box-shadow: 0 0 10px rgba(123,47,247,0.35);
+            outline: none;
+        }
+
+        /* ================= BUTTON ================= */
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(90deg, #7b2ff7, #3c8dff);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-size: 17px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.25s;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.22);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 26px rgba(0,0,0,0.28);
+        }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 600px) {
+            .container {
+                padding: 28px 20px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            .navbar {
+                padding: 14px 22px;
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+    <nav class="navbar">
+        <span>HostelHub Admin</span>
+        <a href="{{ url_for('xHostelIndex') }}" class="nav-back">Back</a>
+    </nav>
+
+    <!-- ================= CARD ================= -->
+    <div class="container">
+        <h2>Set Hostel Fee</h2>
+
+        <form method="POST">
+            <label for="fee">Hostel Fee Amount (₹)</label>
+            <input type="number" id="fee" name="fee" value="{{ current_fee }}" required>
+
+            <button type="submit">Save Fee</button>
+        </form>
+    </div>
+
+</body>
+</html>

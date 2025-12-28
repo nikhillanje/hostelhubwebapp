@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HostelHub - Hostel Admin</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='adminindex.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+
+
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="menu_icon">
+                <i class="bi bi-list"></i>
+            </div>
+
+            <div class="logo">
+                <h1 class="h1logo">HostelHub</h1>
+            </div>
+
+            <ul class="nav-links">
+                <li>
+                    <a href="{{ url_for('adminapproval') }}">
+                        <i class="bi bi-person-lines-fill"></i>
+                        {% if has_pending_requests %}
+                        <span class="green-dot"></span>
+                        {% endif %}
+                        Students Requests
+                    </a>
+                </li>
+                <li><a href="{{ url_for('adminnotification') }}"><i class="bi bi-bell-fill"></i> Notifications</a></li>
+                <li><a href="{{ url_for('adminfeedback') }}"><i class="bi bi-chat-dots"></i> Feedbacks</a></li>
+            </ul>
+
+
+            <!-- Sidebar -->
+            <div id="sidebar" class="sidebar">
+                <!-- Sidebar Heading -->
+                <div style="
+        font-size: 22px;
+        font-weight: bold;
+        text-align: center;
+        padding: 14px 10px 10px;
+        color: white;
+        margin-bottom: 5px;
+    ">
+                    HostelHub
+                </div>
+                <ul>
+                    <li><a href="{{ url_for('xOverview') }}"><i class="bi bi-speedometer2"></i> Overview</a></li>
+                    <li><a href="{{ url_for('adminattendance') }}"><i class="bi bi-person-check"></i> Attendance</a>
+                    </li>
+
+                    <li><a href="{{ url_for('hostel_fees_admin') }}"><i class="bi bi-building"></i> Hostel Fees</a></li>
+                    <li><a href="{{ url_for('set_hostel_fee') }}"><i class="bi bi-gear-wide-connected"></i> Set Hostel
+                            Fee</a></li>
+
+                    <li><a href="{{ url_for('adminbill') }}"><i class="bi bi-basket"></i> Mess Fees</a></li>
+                    <li><a href="{{ url_for('adminsetbill') }}"><i class="bi bi-sliders"></i> Set Mess Fee</a></li>
+
+                    <li><a href="/complaints"><i class="bi bi-exclamation-triangle-fill"></i> Complaints</a></li>
+                    <li><a href="{{ url_for('adminleave') }}"><i class="bi bi-door-open"></i> Leave</a></li>
+                    <li><a href="{{ url_for('adminhelpline') }}"><i class="bi bi-telephone-fill"></i> Helpline No.</a>
+                    </li>
+
+                    <li><a href="{{ url_for('adminlogout') }}" onclick="return confirmLogout();"
+                            class="bi bi-box-arrow-right">
+                            Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- LED Text -->
+        <div class="led-banner">
+            <div class="led-text" id="ledText">Welcome to HostelHub Admin</div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <div class="row g-4">
+
+            <!-- Overview -->
+            <div class="col-md-6 col-lg-3 d-flex">
+                <a href="{{ url_for('xOverview') }}" class="feature-link">
+                    <div class="feature-card text-center p-4">
+                        <i class="bi bi-speedometer2 display-1"></i>
+                        <h2>Overview</h2>
+                        <p>View overall statistics and a quick summary of the system.</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Attendance -->
+            <div class="col-md-6 col-lg-3 d-flex">
+                <a href="{{ url_for('adminattendance') }}" class="feature-link">
+                    <div class="feature-card text-center p-4">
+                        <i class="bi bi-person-check display-1"></i>
+                        <h2>Daily Attendance</h2>
+                        <p>Track daily attendance of students for meals.</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Room Allocation (dummy link for now) -->
+            <div class="col-md-6 col-lg-3 d-flex">
+                <a href="{{ url_for('room_allocation') }}" class="feature-link">
+                    <div class="feature-card text-center p-4">
+                        <i class="bi bi-house-door display-1"></i>
+                        <h2>Room Allocation</h2>
+                        <p>Manage and assign rooms to students efficiently.</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Hostel Fees -->
+            <div class="col-md-6 col-lg-3 d-flex">
+                <a href="{{ url_for('hostel_fees_admin') }}" class="feature-link">
+                    <div class="feature-card text-center p-4">
+                        <i class="bi bi-cash-stack display-1"></i>
+                        <h2>Hostel Fees</h2>
+                        <p>Manage and process hostel fee payments for students.</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Notifications -->
+            <div class="col-md-6 col-lg-3 d-flex">
+                <a href="{{ url_for('adminnotification') }}" class="feature-link">
+                    <div class="feature-card text-center p-4">
+                        <i class="bi bi-bell-fill display-1"></i>
+                        <h2>Notifications</h2>
+                        <p>Receive updates and alerts regarding mess activities.</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Leave -->
+            <div class="col-md-6 col-lg-3 d-flex">
+                <a href="{{ url_for('adminleave') }}" class="feature-link">
+                    <div class="feature-card text-center p-4">
+                        <i class="bi bi-door-open display-1"></i>
+                        <h2>Leave</h2>
+                        <p>Manage requests for leave from mess facilities.</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Feedbacks -->
+            <div class="col-md-6 col-lg-3 d-flex">
+                <a href="{{ url_for('adminfeedback') }}" class="feature-link">
+                    <div class="feature-card text-center p-4">
+                        <i class="bi bi-chat-left-text-fill display-1"></i>
+                        <h2>Feedbacks</h2>
+                        <p>Provide feedback and lodge complaints regarding mess services.</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Contact Us -->
+            <div class="col-md-6 col-lg-3 d-flex">
+                <a href="{{ url_for('admincontact') }}" class="feature-link">
+                    <div class="feature-card text-center p-4">
+                        <i class="bi bi-envelope-fill display-1"></i>
+                        <h2>Contact Us</h2>
+                        <p>Get in touch with us for any queries or support.</p>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 HostelHub Admin. All rights reserved.</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='adminindex.js') }}"></script>
+</body>
+
+</html>

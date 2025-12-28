@@ -5,11 +5,20 @@
     <meta charset="UTF-8">
     <title>Registration</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 </head>
 
 <body>
+    <nav class="navbar">
+        <div class="brand-navbar">
+            🏢 <span>HostelHub Register</span>
+        </div>
+        <a href="#" onclick="history.back()" class="back-button" title="Go back">Back</a>
+    </nav>
     <div class="registration-form">
-        <h2>Register To MessTrack</h2>
+        <h2>Register To HostelHub</h2>
         <form method="POST" autocomplete="off">
             {{ form.hidden_tag() }}
 

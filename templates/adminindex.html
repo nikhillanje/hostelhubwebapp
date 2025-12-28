@@ -4,141 +4,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MessTrack Admin</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='adminindex.css') }}"> <!-- Your custom CSS -->
+    <title>HostelHub - Mess Admin</title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='adminindex.css') }}">
+
+    <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap 5 CSS -->
+
+    <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+
+
 </head>
 
 <body>
-    <!-- Header -->
+
+    <!-- ================= HEADER / NAVBAR ================= -->
     <header>
-        <nav>
+        <nav class="top-nav">
             <div class="menu_icon">
-                <i class="bi bi-list"></i> <!-- Sidebar Toggle Icon -->
+                <i class="bi bi-list"></i>
             </div>
+
             <div class="logo">
-                <h1 class="h1logo">Mess-Track Admin</h1>
+                <h1 class="h1logo">HostelHub Mess</h1>
             </div>
+
             <ul class="nav-links">
-                <li>
-                    <a href="{{ url_for('adminapproval') }}">
-                        {% if has_pending_requests %}
-                        <span class="green-dot"></span>
-                        {% endif %}
-                        Students Requests
-                    </a>
-                </li>
-                <li><a href="{{ url_for('adminallusers') }}">Students info</a></li>
                 <li><a href="{{ url_for('adminfeedback') }}">Feedback</a></li>
-                <li><a href="{{ url_for('admincontact') }}"">Contact</a></li>
+                <li><a href="{{ url_for('admincontact') }}">Contact</a></li>
             </ul>
-            <button class=" mode-toggle" onclick="toggleMode()">
-                        <i class="bi bi-moon-fill"></i>
-                        </button>
-                        <!-- Sidebar -->
-                        <div id="sidebar" class="sidebar">
-                            <ul>
-                                <li><a href="#"><i class="bi bi-calendar3" style="color: transparent;"></i></a></li>
-                                <li><a href="{{ url_for('admintimetable') }}"><i class="bi bi-calendar3"></i> Time
-                                        Table</a></li>
-                                <li><a href="{{ url_for('adminattendance') }}"><i class="bi bi-person-check"></i>
-                                        Attendance</a></li>
-                                <li><a href="#"><i class="bi bi-list-ul"></i> Menu</a></li>
-                                <li><a href="{{ url_for('adminbill') }}"><i class="bi bi-receipt"></i> Bills</a></li>
-                                <li><a href="{{ url_for('adminnotification') }}"><i class="bi bi-bell-fill"></i>
-                                        Notifications</a></li>
-                                <li><a href="{{ url_for('adminleave') }}"><i class="bi bi-door-open"></i> Leave</a></li>
-                                <li>
-                                    <a href="{{ url_for('adminhelpline') }}">
-                                        <i class="bi bi-telephone-fill"></i> Helpline No.
-                                    </a>
-                                </li>
-                                <li><a href="{{ url_for('adminlogout') }}" onclick="return confirmLogout();"
-                                        class="bi bi-box-arrow-right"> Logout</a></li>
-                            </ul>
-                        </div>
+
+
+
+            <!-- Sidebar -->
+            <div id="sidebar" class="sidebar">
+
+                <!-- Sidebar Heading -->
+                <div style="
+        font-size: 22px;
+        font-weight: bold;
+        text-align: center;
+        padding: 14px 10px 10px;
+        color: white;
+        margin-bottom: 5px;
+    ">
+                    HostelHub
+                </div>
+                <ul>
+                    <li><a href="{{ url_for('admintimetable') }}"><i class="bi bi-calendar3"></i> Time Table</a></li>
+                    <li>
+                        <a href="{{ url_for('mess_admin_dashboard') }}">
+                            <i class="bi bi-person-check"></i> Student Count
+                        </a>
+                    </li>
+
+                    <li><a href="{{ url_for('notavl') }}"><i class="bi bi-list-ul"></i> Menu</a></li>
+                    <li><a href="{{ url_for('adminnotification') }}"><i class="bi bi-bell-fill"></i> Notifications</a>
+                    </li>
+                    <li><a href="{{ url_for('adminleave') }}"><i class="bi bi-door-open"></i> Leave</a></li>
+                    <li>
+                        <a href="{{ url_for('adminlogout') }}" onclick="return confirmLogout();">
+                            <i class="bi bi-box-arrow-right"></i> Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </nav>
-        <!-- LED-style Scrolling Text -->
+
+        <!-- LED Banner -->
         <div class="led-banner">
-            <div class="led-text" id="ledText"> Welcome to MessTrack Admin</div>
+            <div class="led-text">Welcome to HostelHub Mess Admin</div>
         </div>
     </header>
 
-    <!-- Main Content -->
+    <!-- ================= MAIN CONTENT ================= -->
     <div class="container my-5">
         <div class="row g-4">
-            <div class="col-md-6 col-lg-3 d-flex">
-                <div class="feature-card text-center p-4">
-                    <i class="bi bi-calendar3 display-1"></i>
-                    <h2><a href="#" style="text-decoration: none;">Time Table</a></h2>
-                    <p>View and manage the weekly schedule of meals.</p>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 d-flex">
-                <div class="feature-card text-center p-4">
-                    <i class="bi bi-person-check display-1"></i>
-                    <h2><a href="#" style="text-decoration: none;">Daily Attendance</a></h2>
-                    <p>Track daily attendance of students for meals.</p>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 d-flex">
-                <div class="feature-card text-center p-4">
-                    <i class="bi bi-list-ul display-1"></i>
-                    <h2><a href="#" style="text-decoration: none;">Menu Display</a></h2>
-                    <p>Display daily or weekly menu for meals.</p>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 d-flex">
-                <div class="feature-card text-center p-4">
-                    <i class="bi bi-receipt display-1"></i>
-                    <h2><a href="#" style="text-decoration: none;">Bills</a></h2>
-                    <p>Generate monthly bills for mess fees and extras.</p>
-                </div>
+
+            <!-- Time Table -->
+            <div class="col-md-6 col-lg-3">
+                <a href="{{ url_for('admintimetable') }}" class="card-link">
+                    <div class="feature-card">
+                        <i class="bi bi-calendar3"></i>
+                        <h2>Time Table</h2>
+                        <p>Manage the weekly schedule.</p>
+                    </div>
+                </a>
             </div>
 
-            <div class="col-md-6 col-lg-3 d-flex">
-                <div class="feature-card text-center p-4">
-                    <i class="bi bi-bell-fill display-1"></i>
-                    <h2><a href="#" style="text-decoration: none;">Notifications</a></h2>
-                    <p>Receive updates and alerts regarding mess activities.</p>
-                </div>
+            <!-- Attendance -->
+            <div class="col-md-6 col-lg-3">
+                <a href="{{ url_for('mess_admin_dashboard') }}" class="card-link">
+                    <div class="feature-card">
+                        <i class="bi bi-person-check"></i>
+                        <h2>Student Count</h2>
+                        <p>Track daily Count of students.</p>
+                    </div>
+                </a>
             </div>
 
-
-            <div class="col-md-6 col-lg-3 d-flex">
-                <div class="feature-card text-center p-4">
-                    <i class="bi bi-door-open display-1"></i>
-                    <h2><a href="#" style="text-decoration: none;">Leave</a></h2>
-                    <p>Manage requests for leave from mess facilities.</p>
-                </div>
+            <!-- Menu -->
+            <div class="col-md-6 col-lg-3">
+                <a href="{{ url_for('notavl') }}" class="card-link">
+                    <div class="feature-card">
+                        <i class="bi bi-list-ul"></i>
+                        <h2>Menu</h2>
+                        <p>Display daily or weekly menu.</p>
+                    </div>
+                </a>
             </div>
 
-            <div class="col-md-6 col-lg-3 d-flex">
-                <div class="feature-card text-center p-4">
-                    <i class="bi bi-chat-left-text-fill display-1"></i>
-                    <h2><a href="#" style="text-decoration: none;">Feedbacks</a>
-                    </h2>
-                    <p>Provide feedback and lodge complaints regarding mess services.</p>
-                </div>
+            <!-- Send Complaints -->
+            <div class="col-md-6 col-lg-3">
+                <a href="{{ url_for('send_complaint_page') }}" class="card-link">
+                    <div class="feature-card">
+                        <i class="bi bi-exclamation-circle"></i>
+                        <h2>Send Complaints</h2>
+                        <p>Submit mess-related complaints.</p>
+                    </div>
+                </a>
             </div>
 
 
-            <div class="col-md-6 col-lg-3 d-flex">
-                <div class="feature-card text-center p-4">
-                    <i class="bi bi-envelope-fill display-1"></i>
-                    <h2><a href="#" style="text-decoration: none;">Contact Us</a></h2>
-                    <p>Get in touch with us for any queries or support.</p>
-                </div>
+            <!-- Notifications -->
+            <div class="col-md-6 col-lg-3">
+                <a href="{{ url_for('adminnotification') }}" class="card-link">
+                    <div class="feature-card">
+                        <i class="bi bi-bell-fill"></i>
+                        <h2>Notifications</h2>
+                        <p>Send and manage notifications.</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Leave -->
+            <div class="col-md-6 col-lg-3">
+                <a href="{{ url_for('adminleave') }}" class="card-link">
+                    <div class="feature-card">
+                        <i class="bi bi-door-open"></i>
+                        <h2>Leave</h2>
+                        <p>Manage leave requests.</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Feedback -->
+            <div class="col-md-6 col-lg-3">
+                <a href="{{ url_for('adminfeedback') }}" class="card-link">
+                    <div class="feature-card">
+                        <i class="bi bi-chat-left-text-fill"></i>
+                        <h2>Feedback</h2>
+                        <p>View feedback & complaints.</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Contact -->
+            <div class="col-md-6 col-lg-3">
+                <a href="{{ url_for('admincontact') }}" class="card-link">
+                    <div class="feature-card">
+                        <i class="bi bi-envelope-fill"></i>
+                        <h2>Contact</h2>
+                        <p>View contact messages.</p>
+                    </div>
+                </a>
             </div>
 
         </div>
     </div>
 
-    <!-- Footer -->
+    <!-- ================= FOOTER ================= -->
     <footer class="footer">
-        <p>&copy; 2025 MessTrack Admin. All rights reserved.</p>
+        <p>&copy; 2025 HostelHub Admin. All rights reserved.</p>
     </footer>
 
     <script src="{{ url_for('static', filename='adminindex.js') }}"></script>

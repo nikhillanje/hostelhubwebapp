@@ -1,0 +1,278 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #eef2ff, #dbe7ff);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    max-width: 600px;
+    width: 100%;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 900;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    margin-bottom: 20px;
+}
+
+.card h3 {
+    margin-bottom: 15px;
+    color: #2563eb;
+}
+
+.field {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.field span {
+    min-width: 80px;
+    font-weight: 700;
+}
+
+input {
+    flex: 1;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background: #f8fafc;
+}
+
+button {
+    padding: 8px 14px;
+    border: none;
+    background: #2563eb;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+button:hover {
+    background: #1e40af;
+}
+
+
+
+
+/* =========================
+   RESET
+========================= */
+* {
+    box-sizing: border-box;
+    font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #eef2ff, #dbe7ff);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* =========================
+   BACK BUTTON
+========================= */
+.back-btn {
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    background: #ffffff;
+    color: #2563eb;
+    padding: 8px 18px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 800;
+    text-decoration: none;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    transition: all 0.25s ease;
+    z-index: 1000;
+}
+
+.back-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.3);
+}
+
+/* =========================
+   CONTAINER
+========================= */
+.container {
+    width: 100%;
+    max-width: 620px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 28px;
+    font-size: 28px;
+    font-weight: 900;
+    color: #0f172a;
+}
+
+/* =========================
+   CARDS
+========================= */
+.card {
+    background: #ffffff;
+    padding: 22px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    margin-bottom: 20px;
+}
+
+.card h3 {
+    margin-bottom: 14px;
+    color: #2563eb;
+    font-weight: 900;
+}
+
+/* =========================
+   FIELDS
+========================= */
+.field {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.field span {
+    min-width: 90px;
+    font-weight: 700;
+    color: #334155;
+}
+
+.field input {
+    flex: 1;
+    padding: 9px 10px;
+    border-radius: 8px;
+    border: 1px solid #cbd5f5;
+    background: #f8fafc;
+    font-size: 14px;
+}
+
+/* =========================
+   COPY BUTTON
+========================= */
+.field button {
+    padding: 8px 14px;
+    border: none;
+    background: #2563eb;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.field button:hover {
+    background: #1e40af;
+}
+
+/* =========================
+   TABLET
+========================= */
+@media (max-width: 900px) {
+
+    h2 {
+        font-size: 24px;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
+    .card h3 {
+        font-size: 18px;
+    }
+}
+
+/* =========================
+   MOBILE (IMPROVED SIZE)
+========================= */
+@media (max-width: 600px) {
+
+    body {
+        padding: 20px 14px;
+    }
+
+    .container {
+        max-width: 100%;
+    }
+
+    /* Page heading */
+    h2 {
+        font-size: 24px;
+        /* ⬆ bigger */
+        margin-bottom: 26px;
+    }
+
+    /* Cards */
+    .card {
+        padding: 22px;
+        border-radius: 16px;
+    }
+
+    .card h3 {
+        font-size: 20px;
+        /* ⬆ bigger */
+        margin-bottom: 16px;
+    }
+
+    /* Fields */
+    .field {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .field span {
+        font-size: 15px;
+        /* ⬆ readable */
+        font-weight: 800;
+    }
+
+    .field input {
+        font-size: 16px;
+        /* ⬆ IMPORTANT for mobile */
+        padding: 12px;
+    }
+
+    /* Copy button */
+    .field button {
+        width: 100%;
+        font-size: 16px;
+        padding: 12px;
+        border-radius: 10px;
+    }
+
+    /* Back button */
+    .back-btn {
+        font-size: 14px;
+        padding: 8px 16px;
+        top: 16px;
+        right: 16px;
+    }
+}

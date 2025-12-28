@@ -1,20 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='adminbill.css') }}">
-    <title>Messtrack - Student Payment Status</title>
+    <meta charset="UTF-8">
+    <title>Student Payment Status - HostelHub</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='adminbill.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
 </head>
 
 <body>
 
-    <div class="nav">
-        <a href="/adminsetbill" class="btn">Set Monthly Bill</a>
-        <a href="{{ url_for('adminindex') }}" class="back-btn">Back</a>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-title">Student Payment Status</div>
+
+        <div class="nav-buttons">
+            <a href="/adminsetbill">Set Monthly Bill</a>
+            <a href="{{ url_for('xHostelIndex') }}">Back</a>
+        </div>
+    </nav>
+
+    <!-- PAGE TITLE -->
+    <h1>Student Payment Status for {{ month }}</h1>
+
+    <!-- FILTER -->
+    <div class="filter-box">
+        <label for="paymentFilter">Filter by Payment Status:</label>
+        <select id="paymentFilter" onchange="filterStatus()">
+            <option value="all">All</option>
+            <option value="Paid">Paid</option>
+            <option value="Not Paid">Not Paid</option>
+        </select>
     </div>
 
-
-    <h1>Student Payment Status for {{ month }}</h1>
+    <!-- TABLE -->
     <table>
         <thead>
             <tr>
@@ -24,6 +44,7 @@
                 <th>Month</th>
             </tr>
         </thead>
+
         <tbody>
             {% for student in students %}
             <tr>
@@ -35,6 +56,20 @@
             {% endfor %}
         </tbody>
     </table>
+
+    <!-- JS FILTER -->
+    <script>
+        function filterStatus() {
+            let filter = document.getElementById("paymentFilter").value.toLowerCase();
+            let rows = document.querySelectorAll("tbody tr");
+
+            rows.forEach(row => {
+                let status = row.querySelector("td:nth-child(3)").innerText.toLowerCase();
+
+                row.style.display = (filter === "all" || status === filter) ? "" : "none";
+            });
+        }
+    </script>
 
 </body>
 
