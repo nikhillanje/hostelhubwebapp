@@ -1654,23 +1654,59 @@ def allocate_room():
 
     return jsonify({"message": "Room allocated successfully!"})
 
+
+
+
+
+# @app.route('/rooms-overview')
+# def rooms_overview():
+#     rooms = []
+
+#     # Generate F-01 to F-200
+#     for i in range(1, 201):
+#         room_no = f"F-{i:02d}"
+#         count = mongo.db.rooms.count_documents({"room_no": room_no})
+#         rooms.append({"room_no": room_no, "count": count})
+
+#     # Generate G-01 to G-300
+#     for i in range(1, 301):
+#         room_no = f"G-{i:02d}"
+#         count = mongo.db.rooms.count_documents({"room_no": room_no})
+#         rooms.append({"room_no": room_no, "count": count})
+
+#     return render_template("rooms_overview.html", rooms=rooms)
+
+
 @app.route('/rooms-overview')
 def rooms_overview():
+
     rooms = []
 
-    # Generate F-01 to F-200
+    # Get all room counts at once
+    room_counts = mongo.db.rooms.aggregate([
+        {"$group": {"_id": "$room_no", "count": {"$sum": 1}}}
+    ])
+
+    count_map = {r["_id"]: r["count"] for r in room_counts}
+
+    # F-01 to F-200
     for i in range(1, 201):
         room_no = f"F-{i:02d}"
-        count = mongo.db.rooms.count_documents({"room_no": room_no})
-        rooms.append({"room_no": room_no, "count": count})
+        rooms.append({
+            "room_no": room_no,
+            "count": count_map.get(room_no, 0)
+        })
 
-    # Generate G-01 to G-300
+    # G-01 to G-300
     for i in range(1, 301):
         room_no = f"G-{i:02d}"
-        count = mongo.db.rooms.count_documents({"room_no": room_no})
-        rooms.append({"room_no": room_no, "count": count})
+        rooms.append({
+            "room_no": room_no,
+            "count": count_map.get(room_no, 0)
+        })
 
     return render_template("rooms_overview.html", rooms=rooms)
+
 
 
 
