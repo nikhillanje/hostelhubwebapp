@@ -15,6 +15,15 @@
         <div class="brand">🏢 <span>HostelHub</span></div>
 
         <div class="nav-right">
+            <button class="pill-btn login-btn" onclick="openSampleLogins()">
+                Sample Logins
+            </button>
+
+            <script>
+                function openSampleLogins() {
+                    window.open("/samp", "_blank");
+                }
+            </script>
 
 
             <button class="pill-btn helpline-pill">📞 Helpline No. {{ helpline }}</button>

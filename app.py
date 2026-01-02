@@ -1658,25 +1658,6 @@ def allocate_room():
 
 
 
-# @app.route('/rooms-overview')
-# def rooms_overview():
-#     rooms = []
-
-#     # Generate F-01 to F-200
-#     for i in range(1, 201):
-#         room_no = f"F-{i:02d}"
-#         count = mongo.db.rooms.count_documents({"room_no": room_no})
-#         rooms.append({"room_no": room_no, "count": count})
-
-#     # Generate G-01 to G-300
-#     for i in range(1, 301):
-#         room_no = f"G-{i:02d}"
-#         count = mongo.db.rooms.count_documents({"room_no": room_no})
-#         rooms.append({"room_no": room_no, "count": count})
-
-#     return render_template("rooms_overview.html", rooms=rooms)
-
-
 @app.route('/rooms-overview')
 def rooms_overview():
 
